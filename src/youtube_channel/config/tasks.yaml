@@ -1,0 +1,77 @@
+research_crypto_topics:
+  description: >
+    Research and identify 5 evergreen crypto topics for YouTube Shorts.
+    Focus on:
+    1. Fundamental concepts beginners need to understand
+    2. Topics with lasting educational value (not time-sensitive news)
+    3. Content that can be explained clearly in under 60 seconds
+    4. Subjects people will search for repeatedly over time
+    
+    Examples of evergreen topics:
+    - "What is a crypto wallet and how does it work?"
+    - "Blockchain explained in simple terms"
+    - "What is DeFi (Decentralized Finance)?"
+    - "How to read a crypto chart for beginners"
+    - "What are gas fees in crypto?"
+    
+    Use DuckDuckGo to research current interest and ensure topics are relevant.
+  expected_output: >
+    A detailed report with 5 YouTube Shorts ideas including:
+    - Topic title (catchy and clear)
+    - Why it's evergreen and educational
+    - Key points to cover in 60 seconds
+    - Target audience appeal (beginners)
+    - Search potential
+  agent: crypto_researcher
+  output_file: output/shorts_ideas_report.txt
+
+create_script:
+  description: >
+    Select the BEST idea from the research report and create a complete 
+    60-second script with:
+    
+    1. SCRIPT STRUCTURE:
+       - Hook (first 3 seconds - must grab attention)
+       - Educational content (clear, simple explanation)
+       - Call-to-action (subscribe, like, comment)
+    
+    2. Keep it under 60 seconds when read aloud
+    3. Use simple language for crypto beginners
+    4. Make it engaging and valuable
+  expected_output: >
+    A complete video script formatted clearly with:
+    - Hook section
+    - Main content
+    - Call-to-action
+    - Estimated duration
+  agent: script_strategist
+  context:
+    - research_crypto_topics
+  output_file: output/script.txt
+
+create_creative_brief:
+  description: >
+    Create a creative direction document for the video including:
+    
+    1. TONE/STYLE:
+       - Overall mood (e.g., "Educational and friendly", "Exciting but clear")
+       - Pacing (fast, moderate, slow)
+    
+    2. MUSIC RECOMMENDATIONS:
+       - Genre (e.g., "Upbeat electronic", "Calm ambient")
+       - Mood (e.g., "Energetic", "Professional")
+    
+    3. SOUND EFFECTS:
+       - Specific moments needing effects
+       - Type of effects (e.g., "Whoosh for transitions", "Ding for key points")
+    
+    4. VISUAL STYLE NOTES:
+       - Suggested visual elements
+       - Text overlay recommendations
+  expected_output: >
+    A creative brief document with all production guidance including 
+    tone, music type, sound effects, and visual style recommendations
+  agent: script_strategist
+  context:
+    - create_script
+  output_file: output/creative_brief.txt

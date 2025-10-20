@@ -1,0 +1,27 @@
+[project]
+name = "youtube_channel"
+version = "0.1.0"
+description = "youtube-channel using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai[tools]>=0.203.1,<1.0.0",
+    "ddgs>=9.6.1",
+    "duckduckgo-search>=8.1.1",
+    "langchain>=1.0.1",
+    "langchain-community>=0.4",
+]
+
+[project.scripts]
+youtube_channel = "youtube_channel.main:run"
+run_crew = "youtube_channel.main:run"
+train = "youtube_channel.main:train"
+replay = "youtube_channel.main:replay"
+test = "youtube_channel.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
