@@ -871,6 +871,23 @@ wheels = [
 ]
 
 [[package]]
+name = "elevenlabs"
+version = "2.19.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "pydantic-core" },
+    { name = "requests" },
+    { name = "typing-extensions" },
+    { name = "websockets" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/5a/4d/36b46644e5ed99b0c3be3f88685e305d3dd194725a3b1e5daa668fb6a96b/elevenlabs-2.19.0.tar.gz", hash = "sha256:9f8c2002233897d54c1507939e4367123214980a33b15fe188f6fdb98f7358e4", size = 405946, upload-time = "2025-10-20T14:34:06.55Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/24/9d/bbe4959f784206d20768e7b4bc91c68b599c985087f817aa5e11ab8a5c3e/elevenlabs-2.19.0-py3-none-any.whl", hash = "sha256:7f21f9e6452636ceba44d321ca47c927464a4d121089faf9824f31da0281ca79", size = 1088926, upload-time = "2025-10-20T14:34:05.166Z" },
+]
+
+[[package]]
 name = "et-xmlfile"
 version = "2.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -4627,6 +4644,7 @@ dependencies = [
     { name = "crewai", extra = ["tools"] },
     { name = "ddgs" },
     { name = "duckduckgo-search" },
+    { name = "elevenlabs" },
     { name = "langchain" },
     { name = "langchain-community" },
 ]
@@ -4636,6 +4654,7 @@ requires-dist = [
     { name = "crewai", extras = ["tools"], specifier = ">=0.203.1,<1.0.0" },
     { name = "ddgs", specifier = ">=9.6.1" },
     { name = "duckduckgo-search", specifier = ">=8.1.1" },
+    { name = "elevenlabs", specifier = ">=2.19.0" },
     { name = "langchain", specifier = ">=1.0.1" },
     { name = "langchain-community", specifier = ">=0.4" },
 ]

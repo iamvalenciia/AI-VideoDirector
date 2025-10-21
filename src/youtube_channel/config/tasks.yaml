@@ -38,7 +38,7 @@ research_news:
     A JSON file containing exactly 10 news items with this structure:
     {
       "topic": "the search topic",
-      "search_date": "2025-10-20",
+      "search_date": "2025-10-21",
       "news": [
         {
           "title": "News headline",
@@ -56,9 +56,6 @@ research_news:
     - If you cannot find recent news, you MUST use the search tool again
     - DO NOT include news from 2023 or earlier under any circumstances
     - Each news item MUST include a date field showing when it was published
-  
-  agent: news_hunter
-  output_file: output/news_collection.json
 
 create_viral_script:
   description: >
@@ -131,8 +128,3 @@ create_viral_script:
       "engagement_notes": "Brief notes on what makes this script work for retention",
       "estimated_duration": "58 seconds"
     }
-  
-  agent: script_creator
-  context:
-    - research_news
-  output_file: output/video_script.json

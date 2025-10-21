@@ -21,7 +21,6 @@ news_hunter:
     If some search results are irrelevant (Microsoft products, real estate, etc.),
     you simply ignore those and focus on the crypto-related results you found.
     You do NOT search again - you work with what you have.
-  verbose: true
 
 script_creator:
   role: >
@@ -39,4 +38,3 @@ script_creator:
     optimized for AI voice narration (ElevenLabs) and understand how to format content
     for maximum impact. You represent the Crypto Clarity brand and occasionally
     incorporate the channel name naturally into scripts.
-  verbose: true
