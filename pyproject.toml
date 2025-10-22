@@ -11,6 +11,7 @@ dependencies = [
     "elevenlabs>=2.19.0",
     "langchain>=1.0.1",
     "langchain-community>=0.4",
+    "openai-whisper>=20250625",
 ]
 
 [project.scripts]

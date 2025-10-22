@@ -49,7 +49,7 @@ class MyDuckDuckGoTool(BaseTool):
 
         try:
             print(f"\n{'=' * 60}")
-            print(f"🔍 SEARCH #{_search_count}: '{query}'")
+            print(f"SEARCH #{_search_count}: '{query}'")
             print("=" * 60)
 
             # Use DuckDuckGo with more results for better coverage
@@ -58,8 +58,8 @@ class MyDuckDuckGoTool(BaseTool):
 
             # Show preview of results
             preview = result[:400] if len(result) > 400 else result
-            print("✅ Search completed successfully")
-            print("\n📄 Results preview:")
+            print("Search completed successfully")
+            print("\nResults preview:")
             print(f"{'-' * 60}")
             print(preview)
             print(f"{'-' * 60}\n")
@@ -67,7 +67,7 @@ class MyDuckDuckGoTool(BaseTool):
             return result
 
         except Exception as e:
-            error_msg = f"❌ Search failed for query '{query}': {str(e)}"
+            error_msg = f"Search failed for query '{query}': {str(e)}"
             print(error_msg)
             return f"{error_msg}\n\nTry rephrasing your search query or use different keywords."
 

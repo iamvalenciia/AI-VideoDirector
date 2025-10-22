@@ -5,44 +5,23 @@ from pathlib import Path
 from crew import YoutubeChannelCrew
 from tools.elevenlabs_tool import generate_audio_from_script
 
+from youtube_channel.tools.whisper_tool import generate_timestamps_from_audio
+
 
 def run_full_crew():
-    """Runs the full workflow: Research and Script generation."""
+    """Runs the full workflow: Research, Script, Audio, and Transcription."""
     inputs = {"topic": "Cryptocurrencies"}
 
-    print("\n" + "=" * 60)
-    print("CRYPTO CLARITY - Running Full Workflow")
-    print("=" * 60)
-    print(f"Topic: {inputs['topic']}")
-    print("Starting crew execution...\n")
-
     try:
-        # Use the crew instance directly - NO .crew() call needed!
+        # Step 1: Run CrewAI agents for research and script creation
         crew_instance = YoutubeChannelCrew()
         result = crew_instance.crew().kickoff(inputs=inputs)
 
-        print("\n" + "=" * 60)
-        print("SCRIPT GENERATION COMPLETE!")
-        print("=" * 60)
-        print("\nGenerated files in output/:")
-        print("  - news_collection.json")
-        print("  - video_script.json")
-
-        # Now generate audio as a simple post-processing step
-        print("\n" + "-" * 60)
-        print("Generating audio narration...")
-        print("-" * 60)
-
+        # Step 2: Generate audio narration
         generate_audio_from_script()
 
-        print("\n" + "=" * 60)
-        print("FULL WORKFLOW COMPLETE!")
-        print("=" * 60)
-        print("All files generated:")
-        print("  - output/news_collection.json")
-        print("  - output/video_script.json")
-        print("  - output/narracion.mp3")
-        print("\n" + "=" * 60 + "\n")
+        # Step 3: Generate timestamps with WhisperX
+        generate_timestamps_from_audio()
 
     except Exception as e:
         print_error(e)
@@ -51,27 +30,41 @@ def run_full_crew():
 
 def run_narration_only():
     """Runs ONLY the narration generation (simple function call)."""
-    print("\n" + "=" * 60)
-    print("CRYPTO CLARITY - Generating Audio Only")
-    print("=" * 60)
-
-    script_file = Path("output/video_script.json")
-    if not script_file.exists():
-        print(f"❌ ERROR: Input file '{script_file}' not found.")
-        print("You must run the full workflow first to generate the script.")
-        print("Use: python main.py")
-        sys.exit(1)
-
-    print(f"Using existing script: {script_file}\n")
-
     try:
         generate_audio_from_script()
 
+    except Exception as e:
+        print_error(e)
+        sys.exit(1)
+
+
+def run_transcription_only():
+    """Runs ONLY the transcription generation (simple function call)."""
+
+    try:
+        generate_timestamps_from_audio()
+
+    except Exception as e:
+        print_error(e)
+        sys.exit(1)
+
+
+def run_audio_and_transcription():
+    """Runs audio generation + transcription (skips CrewAI agents)."""
+
+    try:
+        # Step 1: Generate audio
+        generate_audio_from_script()
+
+        # Step 2: Generate timestamps
+        generate_timestamps_from_audio()
+
         print("\n" + "=" * 60)
-        print("AUDIO GENERATION COMPLETE!")
+        print("🎉 AUDIO PIPELINE COMPLETE!")
         print("=" * 60)
-        print("Generated file:")
-        print("  - output/narracion.mp3")
+        print("Generated files:")
+        print("  ✅ output/narracion.mp3")
+        print("  ✅ output/timestamps.json")
         print("\n" + "=" * 60 + "\n")
 
     except Exception as e:
@@ -81,34 +74,60 @@ def run_narration_only():
 
 def print_error(e):
     """Prints a formatted error message."""
-    print("\n" + "=" * 60)
     print("ERROR DURING EXECUTION")
-    print("=" * 60)
     print(f"\n{str(e)}\n")
+
+
+def print_help():
+    """Prints usage instructions."""
+    print("\n" + "=" * 60)
+    print("CRYPTO CLARITY - YouTube Shorts Production Pipeline")
+    print("=" * 60)
+    print("\nUsage:")
+    print("  python main.py")
+    print("    → Runs full workflow: Research + Script + Audio + Transcription")
+    print()
+    print("  python main.py --step=narrate")
+    print("    → Generates audio only (requires video_script.json)")
+    print()
+    print("  python main.py --step=transcribe")
+    print("    → Generates timestamps only (requires narracion.mp3)")
+    print()
+    print("  python main.py --step=audio-pipeline")
+    print("    → Generates audio + timestamps (requires video_script.json)")
+    print()
+    print("  python main.py --help")
+    print("    → Shows this help message")
+    print("\n" + "=" * 60 + "\n")
 
 
 def run():
     """
     Main execution function.
-    Parses command-line arguments to run the full crew or just audio generation.
+    Parses command-line arguments to run different pipeline stages.
     """
     # Ensure output directory exists
     Path("output").mkdir(exist_ok=True)
 
     # Parse command-line arguments
     if len(sys.argv) > 1:
-        if sys.argv[1] == "--step=narrate":
+        arg = sys.argv[1]
+
+        if arg == "--step=narrate":
             run_narration_only()
-        elif sys.argv[1] == "--help":
-            print("Usage:")
-            print("  python main.py                (Runs full workflow + audio)")
-            print("  python main.py --step=narrate (Generates audio only)")
+        elif arg == "--step=transcribe":
+            run_transcription_only()
+        elif arg == "--step=audio-pipeline":
+            run_audio_and_transcription()
+        elif arg == "--help":
+            print_help()
             sys.exit(0)
         else:
-            print(f"Unknown argument: {sys.argv[1]}")
-            print("Use --help for usage information")
+            print(f"❌ Unknown argument: {arg}")
+            print_help()
             sys.exit(1)
     else:
+        # Default: run full workflow
         run_full_crew()
 
 
