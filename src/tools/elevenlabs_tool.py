@@ -34,7 +34,7 @@ def generate_audio_from_script(
         ValueError: If API key not found or script file invalid
         FileNotFoundError: If script file doesn't exist
     """
-    print("🎙️ Starting ElevenLabs audio generation...")
+    print("[ELEVENLABS] Starting ElevenLabs audio generation...")
     print(f"   Input: {script_file}")
     print(f"   Output: {output_file}")
 
@@ -65,13 +65,13 @@ def generate_audio_from_script(
     if not script_text:
         raise ValueError(f"'script' key not found in {script_file}")
 
-    print(f"\n📝 Script preview: {script_text[:100]}...")
+    print(f"\n[SCRIPT] Script preview: {script_text[:100]}...")
 
     # 4. Generate audio using ElevenLabs
     try:
         client = ElevenLabs(api_key=api_key)
 
-        print(f"🔊 Generating audio with voice ID: {voice_id_narrator}")
+        print(f"[AUDIO] Generating audio with voice ID: {voice_id_narrator}")
         audio = client.text_to_speech.convert(
             text=script_text,
             voice_id=voice_id_narrator,
@@ -90,12 +90,12 @@ def generate_audio_from_script(
 
         save(audio, str(output_path))
 
-        success_msg = f"✅ Audio successfully saved to {output_file}"
+        success_msg = f"[SUCCESS] Audio successfully saved to {output_file}"
         print(f"\n{success_msg}")
         return success_msg
 
     except Exception as e:
-        error_msg = f"❌ ElevenLabs API error: {str(e)}"
+        error_msg = f"[ERROR] ElevenLabs API error: {str(e)}"
         print(f"\n{error_msg}")
         raise RuntimeError(error_msg)
 

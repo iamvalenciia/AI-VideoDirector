@@ -34,7 +34,7 @@ def generate_timestamps_from_audio(
         FileNotFoundError: If audio file doesn't exist
         RuntimeError: If Whisper processing fails
     """
-    print("🎯 Starting Whisper transcription...")
+    print("[WHISPER] Starting Whisper transcription...")
     print(f"   Input: {audio_file}")
     print(f"   Output: {output_file}")
     print(f"   Language: {language}")
@@ -50,12 +50,12 @@ def generate_timestamps_from_audio(
 
     try:
         # 2. Load Whisper model
-        print(f"\n📥 Loading Whisper '{model_size}' model...")
+        print(f"\n[LOADING] Loading Whisper '{model_size}' model...")
         print("   (First run will download model from HuggingFace)")
         model = whisper.load_model(model_size)
 
         # 3. Transcribe audio with word timestamps
-        print("🎙️ Transcribing audio with word-level timestamps...")
+        print("[TRANSCRIBE] Transcribing audio with word-level timestamps...")
         result = model.transcribe(
             str(audio_path),
             language=language,
@@ -64,7 +64,7 @@ def generate_timestamps_from_audio(
         )
 
         # 4. Format output
-        print("📝 Formatting timestamps...")
+        print("[FORMAT] Formatting timestamps...")
         formatted_data = {
             "audio_file": audio_file,
             "language": result.get("language", language),
@@ -110,23 +110,23 @@ def generate_timestamps_from_audio(
         )
 
         print("\n" + "=" * 60)
-        print("✅ TRANSCRIPTION COMPLETE!")
+        print("TRANSCRIPTION COMPLETE!")
         print("=" * 60)
-        print("📊 Statistics:")
+        print("[STATISTICS]")
         print(f"   - Total segments: {segment_count}")
         print(f"   - Total words: {word_count}")
         print(f"   - Duration: {duration:.2f} seconds")
         if duration > 0:
             print(f"   - Speed: {word_count / duration:.2f} words/second")
         print(f"   - Language detected: {formatted_data['language']}")
-        print(f"\n📄 Output file: {output_file}")
+        print(f"\n[OUTPUT] Output file: {output_file}")
         print("=" * 60)
 
-        success_msg = f"✅ Timestamps successfully saved to {output_file}"
+        success_msg = f"[SUCCESS] Timestamps successfully saved to {output_file}"
         return success_msg
 
     except Exception as e:
-        error_msg = f"❌ Whisper error: {str(e)}"
+        error_msg = f"[ERROR] Whisper error: {str(e)}"
         print(f"\n{error_msg}")
         raise RuntimeError(error_msg)
 

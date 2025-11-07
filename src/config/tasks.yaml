@@ -1,0 +1,263 @@
+research_news:
+  description: >
+    YOU MUST USE THE DUCKDUCKGO SEARCH TOOL TO FIND CURRENT NEWS. DO NOT use your internal knowledge.
+    
+    Search and collect the 10 MOST RELEVANT and RECENT news articles about {topic}.
+    
+    MANDATORY STEPS - DO EXACTLY 3 SEARCHES, NO MORE:
+    
+    Search 1: "{topic} news"
+    Search 2: "{topic} latest"  
+    Search 3: "{topic} 2025"
+    
+    STOP AFTER 3 SEARCHES. Do not search again even if results seem poor.
+    
+    IMPORTANT:
+    - Keep queries SHORT (2-3 words maximum)
+    - Do NOT use quotes, operators, or words like "today", "breaking"
+    - Do exactly 3 searches and STOP
+    - Work with whatever results you get from those 3 searches
+    - Extract the best 10 news items from the combined results
+    
+    If some results are not crypto-related (like Microsoft or real estate),
+    just ignore those and focus on the crypto-related results you did find.
+    
+    CRITICAL REQUIREMENTS:
+    - Perform EXACTLY 3 web searches, no more, no less
+    - Only include news from 2024-2025 in your final output
+    - If you can't find 10 perfect items, include the best ones you found
+    
+    FOR EACH NEWS ITEM COLLECT:
+    - Headline/Title
+    - Brief summary (2-3 sentences max)
+    - Source
+    - Why it's relevant/interesting
+    - Viral potential (why people would care)
+  
+  expected_output: >
+    CRITICAL: Output ONLY valid JSON. Do NOT include markdown code blocks, backticks, or any text outside the JSON structure.
+    Do NOT write ```json at the start or ``` at the end.
+    Your output must start with {{ and end with }}.
+
+    A JSON file containing exactly 10 news items with this structure:
+    {
+      "topic": "the search topic",
+      "search_date": "2025-10-21",
+      "news": [
+        {
+          "title": "News headline",
+          "summary": "Brief 2-3 sentence summary",
+          "source": "Source name or URL",
+          "date": "Publication date (MUST be from 2024 or 2025)",
+          "relevance": "Why this is important/interesting",
+          "viral_potential": "Why people would care about this"
+        }
+      ]
+    }
+    
+    VALIDATION REQUIREMENTS:
+    - ALL news items MUST be from 2024 or 2025
+    - If you cannot find recent news, you MUST use the search tool again
+    - DO NOT include news from 2023 or earlier under any circumstances
+    - Each news item MUST include a date field showing when it was published
+
+create_viral_script:
+  description: >
+    Analyze the 10 news items and CREATE ONE VIRAL YOUTUBE SHORTS SCRIPT.
+    
+    STEP 1 - ANALYSIS:
+    Review all 10 news items and identify which one (or combination) has the BEST potential
+    for creating engaging, evergreen-style content that can go viral.
+    
+    Consider:
+    - Which story has the most curiosity hook?
+    - Which can be explained clearly in 60 seconds?
+    - Which has educational value that remains relevant?
+    - Which will make people watch until the end?
+    
+    STEP 2 - SCRIPT CREATION (Faceless YouTube Shorts Style):
+    
+    Write a 60-second script following these proven retention strategies:
+    
+    HOOK (0-3 seconds):
+    - Open with a bold statement, shocking fact, or intriguing question
+    - Make it impossible to scroll away
+    - Examples: "This just changed everything in crypto..." / "You're doing this wrong..." / "Nobody is talking about this but..."
+    
+    PATTERN INTERRUPTS (throughout):
+    - Use short, punchy sentences
+    - Vary sentence length for rhythm
+    - Include "But here's the thing..." / "And this is crazy..." / "Wait, it gets better..."
+    - Build curiosity loops that pay off
+    
+    RETENTION TACTICS:
+    - Tease valuable information: "And the third reason will surprise you..."
+    - Use the word "YOU" frequently to make it personal
+    - Create mini-cliffhangers: "But before I tell you that..."
+    - Build to a satisfying conclusion
+    
+    ENDING:
+    - Quick recap of key value delivered
+    - Strong call-to-action (like, subscribe, comment)
+    - Can include "Crypto Clarity" name naturally if it fits
+    
+    VOICE/TONE FOR AI NARRATION:
+    - Conversational but authoritative
+    - Energetic without being shouty
+    - Clear pronunciation for technical terms
+    - Natural pauses for emphasis
+    
+    STEP 3 - TECHNICAL SPECIFICATIONS:
+    Define the exact voice characteristics, music style, and emotional tone
+    needed for ElevenLabs audio generation.
+  
+  expected_output: >
+    CRITICAL: Output ONLY valid JSON. Do NOT include markdown code blocks, backticks, or any text outside the JSON structure.
+    Do NOT write ```json at the start or ``` at the end.
+    Your output must start with {{ and end with }}.
+
+    A JSON file with this EXACT structure for ElevenLabs production:
+    {
+      "video_title": "Catchy, clear title optimized for YouTube Shorts",
+      "script": "The complete script text, clean and ready for voice generation. No timestamps, no image references, just the pure narrative text that will be spoken.",
+      "voice_specifications": {
+        "tone": "e.g., Confident and engaging",
+        "pace": "e.g., Moderate with strategic pauses",
+        "energy_level": "e.g., High energy but controlled",
+        "style": "e.g., Educational storyteller",
+        "emotional_direction": "Specific guidance like 'Start intrigued, build excitement, end authoritative'"
+      },
+      "music_suggestion": {
+        "genre": "e.g., Upbeat electronic",
+        "mood": "e.g., Modern and professional",
+        "intensity": "e.g., Medium - shouldn't overpower voice",
+        "style_reference": "e.g., Similar to tech review channels"
+      },
+      "engagement_notes": "Brief notes on what makes this script work for retention",
+      "estimated_duration": "58 seconds"
+    }
+
+create_animation_prompts:
+  description: >
+    Transform the video script and timestamps into ONE IMAGE PER SEGMENT.
+
+    CRITICAL CHANGE: Each segment in timestamps.json represents a natural pause
+    in speech (period, comma, exclamation, question mark). We create ONE image
+    per segment, not multiple frames per segment.
+
+    You will receive:
+    1. timestamps.json - Segmented timing from Whisper (each segment = natural pause)
+    2. video_script.json - The viral script content
+    3. Base character image - The hooded figure style reference
+
+    NEW APPROACH - ONE IMAGE PER SEGMENT:
+    - Count total segments in timestamps.json (typically 20-25 segments)
+    - Create EXACTLY ONE image prompt per segment
+    - Each image lasts for the entire duration of that segment
+    - Images change ONLY at natural pauses (when narrator pauses)
+    - This creates natural flow: image → narrator speaks → pause → new image
+
+    WHY THIS WORKS BETTER:
+    - Image changes during speech feel unnatural and distracting
+    - Pauses are the perfect moment for visual transitions
+    - Viewer attention stays on the message, not jarring changes
+    - Total images = total segments (covers entire audio duration)
+
+    EXAMPLE TIMING:
+    Segment 1: "Wait until you hear about this." (0.00s - 2.45s)
+      → Image 1 displays for 2.45 seconds
+    Segment 2: "The crypto world just changed forever," (2.45s - 5.12s)
+      → Image 2 displays for 2.67 seconds
+    [Pattern continues for all segments]
+
+    PROMPT CREATION RULES:
+    1. Each prompt describes a COMPLETE, polished image (not a progression)
+    2. Maintain visual consistency and storytelling flow
+    3. Vary compositions to keep interest:
+       - Character close-ups for emotional moments
+       - Wide shots for big reveals
+       - Abstract backgrounds for transitions
+       - Detail shots for technical explanations
+    4. Include the segment text for context
+    5. Style: Black and white vector art, minimalist, high contrast
+
+    PROMPT STRUCTURE FOR EACH IMAGE:
+    - Describe the complete scene/composition
+    - Character pose and expression (if character frame)
+    - Background elements and atmosphere
+    - Emotional tone matching the segment
+    - Visual metaphors related to the words
+    - Style reminder (black and white vector art)
+
+    EXAMPLE GOOD PROMPT:
+    "Hooded figure with hand fully raised, palm open facing viewer,
+    surrounded by expanding circular waves of energy particles,
+    confident posture, dramatic lighting from above, particles floating
+    upward, black and white vector style, high contrast, minimalist"
+
+    EXAMPLE BAD PROMPT:
+    "Hand at 30% raised" [BAD] (this is progression language, not needed)
+
+  expected_output: >
+    CRITICAL: Output ONLY valid JSON. Do NOT include markdown code blocks, backticks, or any text outside the JSON structure.
+    Do NOT write ```json at the start or ``` at the end.
+    Your output must start with {{ and end with }}.
+
+    Return a JSON file with ONE IMAGE PER SEGMENT.
+    The number of frames MUST EQUAL the number of segments in timestamps.json.
+
+    Required structure:
+    {{
+      "base_image": "character_0001.png",
+      "total_frames": 22,
+      "video_duration": 60.30,
+      "approach": "one_image_per_segment",
+      "style_guidelines": "Black and white vector art, minimalist, high contrast",
+      "frames": [
+        {{
+          "frame_id": 1,
+          "frame_filename": "frame_0001.png",
+          "start_time": 0.00,
+          "end_time": 2.45,
+          "duration": 2.45,
+          "segment_index": 0,
+          "segment_text": "Wait until you hear about this.",
+          "frame_type": "character_close_up",
+          "shot_type": "medium_shot",
+          "prompt": "Hooded figure with contemplative pose, index finger raised to where lips would be (shh gesture), mysterious aura, floating geometric shapes in background, black and white vector style, high contrast, minimalist, creates sense of anticipation",
+          "composition": "centered",
+          "emotional_tone": "mysterious_anticipation",
+          "visual_metaphor": "secret_revelation",
+          "transition_in": "crossfade",
+          "zoom_effect": "subtle_zoom_in"
+        }},
+        {{
+          "frame_id": 2,
+          "frame_filename": "frame_0002.png",
+          "start_time": 2.45,
+          "end_time": 5.12,
+          "duration": 2.67,
+          "segment_index": 1,
+          "segment_text": "The crypto world just changed forever,",
+          "frame_type": "abstract_concept",
+          "shot_type": "wide_shot",
+          "prompt": "Abstract representation of transformation: circular mandala of cryptocurrency symbols breaking apart and reforming into new patterns, energy waves radiating outward, dramatic lighting, black and white vector style, high contrast, sense of massive change",
+          "composition": "radial",
+          "emotional_tone": "dramatic_revelation",
+          "visual_metaphor": "transformation",
+          "transition_in": "crossfade",
+          "zoom_effect": "subtle_zoom_out"
+        }}
+      ]
+    }}
+
+    VALIDATION:
+    - total_frames MUST equal number of segments in timestamps.json
+    - Each frame's start_time MUST match segment start_time exactly
+    - Each frame's end_time MUST match segment end_time exactly
+    - Last frame's end_time MUST equal video_duration (covers full audio)
+    - NO GAPS between frames
+    - ALL frames have transition_in: "crossfade" for smooth blending
+    - ALL frames have zoom_effect: either "subtle_zoom_in" or "subtle_zoom_out"
+
+    REMEMBER: Output PURE JSON only. No markdown formatting.

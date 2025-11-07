@@ -22,10 +22,10 @@ crewai install
 
 **Add your `OPENAI_API_KEY` into the `.env` file**
 
-- Modify `src/youtube_channel/config/agents.yaml` to define your agents
-- Modify `src/youtube_channel/config/tasks.yaml` to define your tasks
-- Modify `src/youtube_channel/crew.py` to add your own logic, tools and specific args
-- Modify `src/youtube_channel/main.py` to add custom inputs for your agents and tasks
+- Modify `src/config/agents.yaml` to define your agents
+- Modify `src/config/tasks.yaml` to define your tasks
+- Modify `src/crew.py` to add your own logic, tools and specific args
+- Modify `src/main.py` to add custom inputs for your agents and tasks
 
 ## Running the Project
 

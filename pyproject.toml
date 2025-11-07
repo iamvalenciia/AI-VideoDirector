@@ -12,18 +12,24 @@ dependencies = [
     "langchain>=1.0.1",
     "langchain-community>=0.4",
     "openai-whisper>=20250625",
+    "google-genai>=0.3.3",
+    "pillow>=10.4.0",
+    "moviepy>=1.0.3",
 ]
 
 [project.scripts]
-youtube_channel = "youtube_channel.main:run"
-run_crew = "youtube_channel.main:run"
-train = "youtube_channel.main:train"
-replay = "youtube_channel.main:replay"
-test = "youtube_channel.main:test"
+youtube_channel = "src.main:run"
+run_crew = "src.main:run"
+train = "src.main:train"
+replay = "src.main:replay"
+test = "src.main:test"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
 
 [tool.crewai]
 type = "crew"
