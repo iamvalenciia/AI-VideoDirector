@@ -6,3 +6,4 @@ output/
 tests/
 uv.lock
 .claude
+nul
