@@ -48,3 +48,7 @@ class ConsoleUI:
     def print_next_step(command: str):
         """Print next step suggestion"""
         print(f"\nNext step: {command}")
+
+
+# Alias for backward compatibility with Financial Shorts
+Console = ConsoleUI

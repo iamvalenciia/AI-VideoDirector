@@ -1,54 +1,92 @@
-# YoutubeChannel Crew
+# XInsider - Financial Shorts Production Pipeline
 
-Welcome to the YoutubeChannel Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+AI-powered system for creating YouTube Shorts from viral financial tweets.
 
-## Installation
+## Project Structure
 
-Ensure you have Python >=3.10 <3.14 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
-
-First, if you haven't already, install uv:
-
-```bash
-pip install uv
+```
+youtube_channel-crewai/
+├── main.py                          # Entry point
+├── .env                             # API keys
+├── output/financial_shorts/         # Generated assets
+│
+└── src/
+    ├── pipeline_steps/
+    │   ├── data_collection/         # Steps 1-2: Fetch & select tweets
+    │   ├── content_generation/      # Steps 3-5: Analyze, audio, transcribe
+    │   └── visual_production/       # Steps 6-10: Screenshots, visuals, video
+    │
+    ├── handlers/                    # CLI command handler
+    ├── config/                      # Configuration
+    ├── ui/                          # Console UI
+    └── validators/                  # File validators
 ```
 
-Next, navigate to your project directory and install the dependencies:
+## Pipeline Steps
 
-(Optional) Lock the dependencies and install them by using the CLI command:
+### DATA COLLECTION
+1. **fetch-tweets** - Fetch viral financial tweets (Grok AI)
+2. **select-tweet** - AI-powered selection (GPT-4o)
+
+### CONTENT GENERATION
+3. **analyze** - Financial analysis + script (Claude Sonnet 4.5)
+4. **generate-audio** - Audio narration (ElevenLabs)
+5. **transcribe** - Word-level timestamps (Whisper)
+
+### VISUAL PRODUCTION
+6. **generate-screenshot** - Tweet screenshot
+7. **extract-stock-data** - Stock ticker data
+8. **create-ticker** - Stock ticker overlay
+9. **generate-assets** - Visual assets (Gemini) [Coming Soon]
+10. **assemble-video** - Final video (MoviePy) [Coming Soon]
+
+## Quick Start
+
+### Setup
 ```bash
-crewai install
+pip install -r requirements.txt
+
+# Create .env with API keys
+ANTHROPIC_API_KEY=your_key
+OPENAI_API_KEY=your_key
+ELEVEN_LABS_API_KEY=your_key
+GROK_API_KEY=your_key
 ```
-### Customizing
 
-**Add your `OPENAI_API_KEY` into the `.env` file**
-
-- Modify `src/config/agents.yaml` to define your agents
-- Modify `src/config/tasks.yaml` to define your tasks
-- Modify `src/crew.py` to add your own logic, tools and specific args
-- Modify `src/main.py` to add custom inputs for your agents and tasks
-
-## Running the Project
-
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
-
+### Run
 ```bash
-$ crewai run
+# Full pipeline
+python main.py
+
+# Individual steps
+python main.py --step=fetch-tweets
+python main.py --step=select-tweet
+python main.py --step=analyze
+python main.py --step=generate-audio
+python main.py --step=transcribe
+python main.py --step=generate-screenshot
+python main.py --step=extract-stock-data
+python main.py --step=create-ticker
+
+# Help
+python main.py --help
 ```
 
-This command initializes the youtube-channel Crew, assembling the agents and assigning them tasks as defined in your configuration.
+## Output Files
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+- `viral_tweets_normalized.json` - Fetched tweets
+- `tweet_selection_report.json` - Selection reasoning
+- `financial_analysis.json` - Analysis + script
+- `narration.mp3` - Audio
+- `timestamps.json` - Word timestamps
+- `selected_tweet.png` - Screenshot
+- `stock_data.json` - Stock data
+- `ticker_overlay.png` - Ticker overlay
 
-## Understanding Your Crew
+## AI Models
 
-The youtube-channel Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
-
-## Support
-
-For support, questions, or feedback regarding the YoutubeChannel Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
-
-Let's create wonders together with the power and simplicity of crewAI.
+- **Claude Sonnet 4.5** - Financial analysis
+- **GPT-4o** - Tweet selection
+- **Whisper** - Transcription
+- **ElevenLabs** - Text-to-speech
+- **Gemini 2.0 Flash** - Visuals (coming soon)

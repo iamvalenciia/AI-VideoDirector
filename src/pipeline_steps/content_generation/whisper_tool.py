@@ -173,25 +173,30 @@ def get_segment_at_time(timestamps_file: str, time_seconds: float) -> dict:
     return None
 
 
+# Alias for backward compatibility with Financial Shorts orchestrator
+transcribe_audio = generate_timestamps_from_audio
+
+
 # Optional: Keep the BaseTool version if you need it as a CrewAI tool
-from crewai.tools import BaseTool
+# NOTE: Commented out for Financial Shorts pipeline (doesn't use crewai)
+# from crewai.tools import BaseTool
 
 
-class WhisperTool(BaseTool):
-    """
-    CrewAI tool wrapper for Whisper (optional - function approach is better).
-    Only use this if you need an agent to call it dynamically.
-    """
-
-    name: str = "Whisper Transcription Tool"
-    description: str = (
-        "Generates word-level timestamps from an audio file using Whisper. "
-        "Input must be the file path to the audio file (e.g., 'output/narracion.mp3')."
-    )
-
-    def _run(self, audio_file_path: str) -> str:
-        """Wrapper around the generate_timestamps_from_audio function."""
-        try:
-            return generate_timestamps_from_audio(audio_file=audio_file_path)
-        except Exception as e:
-            return f"Error: {str(e)}"
+# class WhisperTool(BaseTool):
+#     """
+#     CrewAI tool wrapper for Whisper (optional - function approach is better).
+#     Only use this if you need an agent to call it dynamically.
+#     """
+#
+#     name: str = "Whisper Transcription Tool"
+#     description: str = (
+#         "Generates word-level timestamps from an audio file using Whisper. "
+#         "Input must be the file path to the audio file (e.g., 'output/narracion.mp3')."
+#     )
+#
+#     def _run(self, audio_file_path: str) -> str:
+#         """Wrapper around the generate_timestamps_from_audio function."""
+#         try:
+#             return generate_timestamps_from_audio(audio_file=audio_file_path)
+#         except Exception as e:
+#             return f"Error: {str(e)}"
