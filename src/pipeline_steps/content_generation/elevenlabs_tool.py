@@ -13,11 +13,10 @@ from elevenlabs.client import ElevenLabs
 
 load_dotenv()
 
-
 def generate_audio_from_script(
-    script_file: str = "output/video_script.json",
-    output_file: str = "output/narracion.mp3",
-    voice_id_narrator: str = "1SM7GgM6IMuvQlz2BwM3",
+    script_file: str = "output/financial_shorts/financial_analysis.json",
+    output_file: str = "output/financial_shorts/narration.mp3",
+    voice_id_narrator: str = "yl2ZDV1MzN4HbQJbMihG",
 ) -> str:
     """
     Generates an MP3 audio file from a script JSON file using ElevenLabs.
@@ -25,7 +24,7 @@ def generate_audio_from_script(
     Args:
         script_file: Path to the JSON file containing the script
         output_file: Path where the MP3 will be saved
-        voice_id: ElevenLabs voice ID to use
+        voice_id_narrator: ElevenLabs voice ID to use
 
     Returns:
         Success message with output file path
@@ -60,10 +59,11 @@ def generate_audio_from_script(
     except json.JSONDecodeError as e:
         raise ValueError(f"Invalid JSON in {script_file}: {str(e)}")
 
-    # 3. Extract script text
-    script_text = data.get("script")
+    # 3. Extract script text from nested structure
+    script_data = data.get("script", {})
+    script_text = script_data.get("full_script", "")
     if not script_text:
-        raise ValueError(f"'script' key not found in {script_file}")
+        raise ValueError(f"'script.full_script' field not found in {script_file}")
 
     print(f"\n[SCRIPT] Script preview: {script_text[:100]}...")
 
@@ -98,28 +98,3 @@ def generate_audio_from_script(
         error_msg = f"[ERROR] ElevenLabs API error: {str(e)}"
         print(f"\n{error_msg}")
         raise RuntimeError(error_msg)
-
-
-# Optional: Keep the BaseTool version if you still want to use it as a tool
-# But for your use case, the function above is better
-from crewai.tools import BaseTool
-
-
-class ElevenLabsTool(BaseTool):
-    """
-    CrewAI tool wrapper for ElevenLabs (optional - function approach is better).
-    Only use this if you need an agent to call it dynamically.
-    """
-
-    name: str = "ElevenLabs Audio Generation Tool"
-    description: str = (
-        "Generates an MP3 audio file from a script text using ElevenLabs. "
-        "Input must be the file path to the JSON script (e.g., 'output/video_script.json')."
-    )
-
-    def _run(self, script_file_path: str) -> str:
-        """Wrapper around the generate_audio_from_script function."""
-        try:
-            return generate_audio_from_script(script_file=script_file_path)
-        except Exception as e:
-            return f"Error: {str(e)}"

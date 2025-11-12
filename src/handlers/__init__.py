@@ -1,3 +1,6 @@
-from .command_handler import CommandHandler
+from .financial_shorts_handler import FinancialShortsHandler
 
-__all__ = ["CommandHandler"]
+# Keep old handler for backward compatibility, but don't import it by default
+# from .command_handler import CommandHandler
+
+__all__ = ["FinancialShortsHandler"]
