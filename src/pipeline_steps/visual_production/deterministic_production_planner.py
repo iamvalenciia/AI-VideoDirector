@@ -29,9 +29,17 @@ class DeterministicProductionPlanner:
     - Real timestamps from Whisper
     """
 
-    def __init__(self, output_dir: str = "output/financial_shorts"):
+    def __init__(self, output_dir: str = "output/financial_shorts", video_format: str = "short"):
+        """
+        Initialize the planner.
+
+        Args:
+            output_dir: Directory with input assets and output plan
+            video_format: "short" (1080x1920) or "long" (1920x1080)
+        """
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
+        self.video_format = video_format  # "short" or "long"
 
     def load_assets(self) -> Dict:
         """Load all required assets."""
@@ -142,14 +150,31 @@ class DeterministicProductionPlanner:
 
     def assign_visuals_to_scenes(self, scenes: List[Dict], assets: Dict) -> List[Dict]:
         """
-        Assign illustrations to each scene.
+        Assign visuals to each scene based on video format.
 
-        Strategy NUEVA (V3):
-        - TODAS las escenas: SOLO ilustraciones en main_content (arriba)
-        - Tweet/gráficos: Se manejan como capa global separada (no en escenas)
-        - Round-robin de ilustraciones disponibles
-        - NO más tweets/charts en main_content
-        - El assembler renderiza tweet/chart como capa global independiente
+        SHORT FORMAT (1080x1920):
+        - Illustrations in main_content (arriba)
+        - Tweet/charts as global layer
+        - Ticker at bottom
+
+        LONG FORMAT (1920x1080):
+        - Character poses behind desk (from pose_catalog.json)
+        - Tweet/image on left screen
+        - Ticker at bottom
+        """
+        # SHORT FORMAT: Use illustrations
+        if self.video_format == "short":
+            return self._assign_visuals_short_format(scenes, assets)
+        # LONG FORMAT: Use character poses
+        elif self.video_format == "long":
+            return self._assign_visuals_long_format(scenes, assets)
+        else:
+            raise ValueError(f"Invalid video_format: {self.video_format}")
+
+    def _assign_visuals_short_format(self, scenes: List[Dict], assets: Dict) -> List[Dict]:
+        """
+        Assign visuals for SHORT format (vertical 1080x1920).
+        Uses illustrations from illustrations_manifest.json
         """
         illustrations = assets.get('illustrations', {}).get('images', [])
 
@@ -158,8 +183,7 @@ class DeterministicProductionPlanner:
             illustrations = []
             print("[WARNING] No illustrations available")
 
-        # NUEVO: Round-robin simple de ilustraciones
-        # TODAS las escenas obtienen ilustraciones (sin tweets ni charts aquí)
+        # Round-robin de ilustraciones
         illustration_idx = 0
 
         for i, scene in enumerate(scenes):
@@ -196,7 +220,7 @@ class DeterministicProductionPlanner:
                         }
                     }
                 }
-                print(f"[INFO] Scene {i+1}: Assigned illustration {illustration_idx}")
+                print(f"[INFO] Scene {i+1} (SHORT): Assigned illustration {illustration_idx}")
             else:
                 # No illustrations available
                 scene['visuals'] = {
@@ -213,12 +237,10 @@ class DeterministicProductionPlanner:
                     }
                 }
 
-            # NOTE: Character poses are NO LONGER assigned (removed as requested)
-
             # Add captions with real word-level timestamps
             scene['captions'] = {
                 'enabled': True,
-                'words': scene['words'],  # Real timestamps from Whisper
+                'words': scene['words'],
                 'style': {
                     'font_size': 32,
                     'font_weight': 'bold',
@@ -226,6 +248,108 @@ class DeterministicProductionPlanner:
                     'inactive_color': '#000000',
                     'background': 'rgba(255, 255, 255, 0.8)',
                     'position_y': 1350
+                }
+            }
+
+            # Add transition
+            scene['transition'] = {
+                'type': 'fade',
+                'duration': 0.5
+            }
+
+        return scenes
+
+    def _assign_visuals_long_format(self, scenes: List[Dict], assets: Dict) -> List[Dict]:
+        """
+        Assign visuals for LONG format (horizontal 1920x1080).
+        Uses character poses from pose_catalog.json
+        """
+        poses = assets.get('poses', {}).get('poses', [])
+
+        # If no poses, use empty list
+        if not poses:
+            poses = []
+            print("[WARNING] No character poses available")
+
+        # Round-robin de poses
+        pose_idx = 0
+
+        for i, scene in enumerate(scenes):
+            # TODAS LAS ESCENAS: Character poses
+            if poses:
+                pose = poses[pose_idx % len(poses)]
+                pose_idx += 1
+
+                scene['visuals'] = {
+                    'studio_scene': 'output/horizontal_videos/studio_scene.png',  # Pre-rendered HTML studio
+                    'character_pose': {
+                        'type': 'pose',
+                        'file': pose.get('file_path', ''),
+                        'category': pose.get('category', 'neutral'),
+                        'position': {
+                            'x': 1200,  # Right side
+                            'y': 350,   # Behind desk
+                            'width': 550,
+                            'height': 700
+                        }
+                    },
+                    'tweet_screen': {
+                        'file': 'output/tweet_screenshots/selected_tweet.png',
+                        'position': {
+                            'x': 80,    # Left side
+                            'y': 240,
+                            'width': 700,
+                            'height': 600
+                        }
+                    },
+                    'ticker': {
+                        'file': 'output/financial_shorts/ticker_strip.png',
+                        'scroll_speed': 100,
+                        'position': {
+                            'x': 0,
+                            'y': 1010,  # Bottom of 1080p
+                            'width': 1920,
+                            'height': 70
+                        }
+                    }
+                }
+                print(f"[INFO] Scene {i+1} (LONG): Assigned pose '{pose.get('category')}' #{pose_idx}")
+            else:
+                # No poses available - just show studio
+                scene['visuals'] = {
+                    'studio_scene': 'output/horizontal_videos/studio_scene.png',
+                    'tweet_screen': {
+                        'file': 'output/tweet_screenshots/selected_tweet.png',
+                        'position': {
+                            'x': 80,
+                            'y': 240,
+                            'width': 700,
+                            'height': 600
+                        }
+                    },
+                    'ticker': {
+                        'file': 'output/financial_shorts/ticker_strip.png',
+                        'scroll_speed': 100,
+                        'position': {
+                            'x': 0,
+                            'y': 1010,
+                            'width': 1920,
+                            'height': 70
+                        }
+                    }
+                }
+
+            # Add captions with real word-level timestamps (adjusted for 1920x1080)
+            scene['captions'] = {
+                'enabled': True,
+                'words': scene['words'],
+                'style': {
+                    'font_size': 28,
+                    'font_weight': 'bold',
+                    'active_color': '#FFD700',
+                    'inactive_color': '#000000',
+                    'background': 'rgba(255, 255, 255, 0.8)',
+                    'position_y': 950  # Above ticker in 1080p
                 }
             }
 
@@ -260,11 +384,18 @@ class DeterministicProductionPlanner:
 
         total_duration = scenes[-1]['end_time'] if scenes else 0
 
+        # Set resolution based on format
+        if self.video_format == "short":
+            resolution = "1080x1920"
+        else:  # long
+            resolution = "1920x1080"
+
         plan = {
             'video_metadata': {
                 'title': assets['script'].get('title', 'Financial Short'),
                 'duration_seconds': round(total_duration, 2),
-                'resolution': '1080x1920',
+                'resolution': resolution,
+                'format': self.video_format,
                 'fps': 30
             },
             'audio': {
