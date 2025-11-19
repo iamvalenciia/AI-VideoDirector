@@ -8,6 +8,7 @@ import os
 from src.ai.createProductionPlan import ProductionPlanCreator
 from src.ai.generateAudioElevenlabs import generate_audio_from_script
 from src.ai.generateImages import generate_transparent_square_image
+from src.tools.audioSynchronizer import AudioSynchronizer
 from src.tools.createTickerBackground import create_ticker_background_image
 from src.tools.createTweetScreenshot import generate_tweet_screenshot
 from src.tools.videoAssembler import VideoConfig, assemble_video
@@ -30,6 +31,7 @@ class BaseHandler(ABC):
             "create-ticker-background-image": self._create_ticket_background_image,
             "create-ticker-image": self._create_ticker_image,
             "create-final-video": self._create_final_video,
+            "create-segments-with-timestamps": self._create_segments_with_timestamps,
         }
         
     def execute(self, command: Optional[str]):
@@ -252,6 +254,7 @@ class BaseHandler(ABC):
         print("Ticker background image created.")
 
     def _create_ticker_image(self):
+
         print("Creating ticker image...")
 
         production_plan_path = (
@@ -277,9 +280,40 @@ class BaseHandler(ABC):
             stocks=stocks_data,
             output_path=str(output_ticker_image_path),
             width=20000,
-            height=35
+            height=80
         ))
         print("Ticker image created.")
+
+    def _create_segments_with_timestamps(self):
+        # Aquí reconstruyo los datos que me diste en el prompt para probar que funciona
+        # (Solo una parte pequeña para validar la lógica de 'Split')
+        
+        synchronizer = AudioSynchronizer()
+        
+        # path files
+
+        plan_path = self.base_dir / "data" / "create_production_plan" / "output" / "production_plan.json"
+        timestamps_path = self.base_dir / "data" / "video_audio" / "elevenlabs" / "timestamps.json"
+        output_segments_path = self.base_dir / "data" / "final_segments" / "segments_with_timestamps.json"
+        
+        try:
+            # Asume que tienes los archivos guardados
+            with open(plan_path, 'r', encoding='utf-8') as f:
+                plan_data = json.load(f)
+            with open(timestamps_path, 'r', encoding='utf-8') as f:
+                timestamps_data = json.load(f)
+                
+            result = synchronizer.sync_segments(plan_data, timestamps_data)
+            
+            print(json.dumps(result, indent=2))
+            
+            # Guardar el resultado nuevo
+            with open(output_segments_path, 'w', encoding='utf-8') as f:
+                json.dump({"segments": result}, f, indent=2)
+                print(f"✅ Archivo guardado: {output_segments_path}")
+                
+        except FileNotFoundError:
+            print("⚠️ No encontré los archivos para hacer la demo, pero la clase AudioSynchronizer está lista.")
 
     def _create_final_video(self):
         """Create the final assembled video"""
@@ -304,10 +338,15 @@ class BaseHandler(ABC):
         config.background_color = (255, 255, 255)  # White
         
         # Character pose position (left side)
-        config.character_x = 1000        # X position (center of square)
-        config.character_y = 400        # Y position (center of square)
+        config.character_x = 600        # X position (center of square)
+        config.character_y = 300       # Y position (center of square) (de abajo arriba)
         config.character_width = 700    # Width of character
         config.character_height = 700   # Height of character
+
+        # We put the tweet lower (Y=750) so the character's head shows above it.
+        config.tweet_width = 800   # Width of the tweet image
+        config.tweet_x = 500      # Centered horizontally with character
+        config.tweet_y = 650       # Lower down vertically (+numer = close to the bottom)
         
         # Generated/Downloaded image position (right side)
         config.image_x = 1300          # X position (center of square)
@@ -317,17 +356,17 @@ class BaseHandler(ABC):
         
         # Caption configuration
         config.caption_font = "Montserrat"      # Font name
-        config.font_path = font_path  # Path to font file
-        config.caption_fontsize = 48            # Font size
-        config.caption_color = (95, 235, 69, 180)   # Caption text color
-        config.caption_bg_color = (0, 0, 0, 180)  # Background (RGBA)
-        config.caption_y = 720                  # Y position (below images)
+        config.caption_fontsize = 80            # Font size
+        config.caption_color = (95, 235, 69)   # Caption text color
+        config.caption_bg_color = (0, 0, 0)  # Background (RGBA)
+        config.caption_y = 750                  # Y position (below images)
+        config.caption_x = 1100                  # Empieza a 400px del borde izquierdo
         config.caption_max_width = 1600         # Max width for text wrap
-        config.caption_stroke_color = "black"   # Outline color
-        config.caption_stroke_width = 2         # Outline thickness
+        config.caption_stroke_color = "white"   # Outline color
+        config.caption_stroke_width = 5         # Outline thickness
         
         # Ticker configuration
-        config.ticker_height = 120               # Height of ticker bar
+        config.ticker_height = 80               # Height of ticker bar
         config.ticker_y = 1020                  # Y position (near bottom)
         config.ticker_speed = 100               # Speed in pixels/second (EDITABLE)
         config.ticker_fade_start_percent = 20   # Fade starts at 20% from left (EDITABLE)
@@ -339,11 +378,21 @@ class BaseHandler(ABC):
         # =============================
         # 2. Define File Paths
         # =============================
+
+        # synced_plan_path
+        synced_plan_path = str(
+            self.base_dir / "data" / "final_segments" / "segments_with_timestamps.json"
+        )
         
         # Input files
         production_plan_path = str(
             self.base_dir / "data" / "create_production_plan" / "output" / "production_plan.json"
         )
+
+        with open(production_plan_path, "r", encoding="utf-8") as f:
+            production_plan_data = json.load(f)
+        
+        manual_ticker_data = production_plan_data.get("ticker_stocks", [])
         
         timestamps_path = str(
             self.base_dir / "data" / "video_audio" / "elevenlabs" / "timestamps.json"
@@ -355,10 +404,8 @@ class BaseHandler(ABC):
         
         # Optional background music
         background_music_path = str(
-            self.base_dir / "data" / "music" / "background.mp3"
+            self.base_dir / "data" / "video_audio" / "music" /"division_music.mp3"
         )
-        if not Path(background_music_path).exists():
-            background_music_path = None
         
         # Ticker images
         ticker_image_path = str(
@@ -369,9 +416,14 @@ class BaseHandler(ABC):
             self.base_dir / "data" / "video_ticker" / "ticker_background.png"
         )
         
+        # Tweet image (optional)
+        tweet_image_path = str(
+            self.base_dir / "data" / "tweet_image" / "tweet_image.png"
+        )
+        
         # Character poses directory
         character_poses_dir = str(
-            self.base_dir / "data" / "character_poses"
+            self.base_dir / "data" / "character_poses" / "nobg"
         )
         
         # Video images directory
@@ -416,7 +468,9 @@ class BaseHandler(ABC):
         # =============================
         try:
             final_video_path = assemble_video(
-                production_plan_path=production_plan_path,
+                tweet_image_path=tweet_image_path,
+                manual_ticker_data=manual_ticker_data,
+                synced_plan_path=synced_plan_path,
                 timestamps_path=timestamps_path,
                 narration_audio_path=narration_audio_path,
                 background_music_path=background_music_path,

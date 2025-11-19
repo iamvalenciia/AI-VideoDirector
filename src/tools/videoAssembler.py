@@ -1,7 +1,7 @@
 from __future__ import annotations
 import json
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union, Tuple
 import numpy as np
 
 try:
@@ -10,16 +10,15 @@ try:
         AudioFileClip, 
         CompositeVideoClip, 
         VideoClip,
-        TextClip,
+        TextClip, 
         ColorClip,
         CompositeAudioClip
     )
-    # Import effects as Effect objects for v2
-    from moviepy.video.fx import FadeIn, FadeOut
-    from PIL import Image
+    from moviepy.audio.fx import AudioLoop
+    from PIL import Image, ImageDraw, ImageFont, ImageColor
 except ImportError as e:
     print(f"Error importing libraries: {e}")
-    print("Install with: pip install moviepy pillow numpy")
+    print("Install with: pip install moviepy>=2.0.0.dev2 pillow numpy")
 
 
 class VideoConfig:
@@ -32,44 +31,64 @@ class VideoConfig:
         self.fps = 30
         
         # Background
-        self.background_color = (255, 255, 255)  # White
+        self.background_color = (255, 255, 255)
         
-        # Character pose position (left side)
-        self.character_x = 1000  # Left square center X
-        self.character_y = 400  # Center Y
+        # Character pose position (Layer 1)
+        self.character_x = 1000
+        self.character_y = 400
         self.character_width = 700
         self.character_height = 700
         
         # Generated/Downloaded image position (right side)
-        self.image_x = 1300  # Right square center X
+        self.image_x = 1300
         self.image_y = 400
         self.image_width = 700
         self.image_height = 700
+
+        # --- TWEET IMAGE CONFIGURATION (Layer 2 - Foreground) ---
+        self.tweet_width = 800   
+        self.tweet_x = 1000      
+        self.tweet_y = 750       
         
         # Captions configuration
         self.caption_font = "Montserrat"
         self.caption_font_path = Path("data/fonts/Montserrat-BoldItalic.ttf")
         self.caption_fontsize = 48
         self.caption_color = "white"
-        self.caption_bg_color = (0, 0, 0, 180)  # Semi-transparent black
-        self.caption_y = 720  # Below the images
+        self.caption_bg_color = None 
+        self.caption_y = 720
+        self.caption_x = 100
         self.caption_max_width = 1600
         self.caption_stroke_color = "black"
-        self.caption_stroke_width = 2
+        self.caption_stroke_width = 4 
         
-        # Bottom ticker configuration
+        # --- PROFESSIONAL TICKER CONFIGURATION ---
         self.ticker_height = 60
-        self.ticker_y = 1020  # Bottom of screen
-        self.ticker_speed = 100  # pixels per second (CONFIGURABLE)
-        self.ticker_fade_start_percent = 20  # Start fading at 20% from left (CONFIGURABLE)
+        self.ticker_y = 1020
+        self.ticker_speed = 150
+        self.ticker_bg_color = (0, 0, 0) 
         
-        # Ticker background (channel name)
-        self.ticker_bg_x = 0
-        self.ticker_bg_y = self.ticker_y
+        # Branding (Logo a la izquierda)
+        self.branding_text_1 = "X"
+        self.branding_color_1 = "#00FF00" # Verde
+        self.branding_text_2 = "Insight"
+        self.branding_color_2 = "#FFFFFF" # Blanco
+        self.branding_width = 220 
         
-        # Transitions
-        self.image_fade_duration = 0.3
-        self.pose_fade_duration = 0.3
+        self.ticker_fade_start_percent = 0 
+        
+        # Ticker Styling
+        self.ticker_font_path = Path("data/fonts/Montserrat-Bold.ttf")
+        self.ticker_font_size = 32
+        self.ticker_text_font = "Montserrat"
+        
+        # Colors
+        self.ticker_color_up = "#00FF00"      
+        self.ticker_color_down = "#FF3333"    
+        self.ticker_color_neutral = "#FFFFFF" 
+        
+        self.ticker_separator = "   |   "
+        self.ticker_item_padding = 60
 
 
 class VideoAssembler:
@@ -80,38 +99,25 @@ class VideoAssembler:
     
     def create_video(
         self,
-        production_plan_path: str,
+        synced_plan_path: str,
         timestamps_path: str,
         narration_audio_path: str,
         background_music_path: Optional[str],
-        ticker_image_path: str,
-        ticker_background_path: str,
+        ticker_image_path: str, 
+        ticker_background_path: str, 
         character_poses_dir: str,
         video_images_dir: str,
-        output_path: str
+        output_path: str,
+        tweet_image_path: Optional[str] = None, 
+        manual_ticker_data: Optional[List[Dict]] = None 
     ) -> str:
-        """
-        Main function to create the video
-        
-        Args:
-            production_plan_path: Path to production_plan.json
-            timestamps_path: Path to timestamps.json
-            narration_audio_path: Path to narration.mp3
-            background_music_path: Path to background music (optional)
-            ticker_image_path: Path to ticker stocks image
-            ticker_background_path: Path to ticker background with channel name
-            character_poses_dir: Directory containing character pose images
-            video_images_dir: Directory containing generated/downloaded images
-            output_path: Output video path
-            
-        Returns:
-            Path to the created video
-        """
+        """Main function to create the video"""
         print("🎬 Starting video assembly...")
         
-        # Load data
-        production_plan = self._load_json(production_plan_path)
-        timestamps = self._load_json(timestamps_path)
+        # 1. Load Data
+        synced_plan = self._load_json(synced_plan_path)
+        original_timestamps = self._load_json(timestamps_path)
+        ticker_data = manual_ticker_data or synced_plan.get("ticker_stocks", [])
         
         # Load audio
         narration_audio = AudioFileClip(narration_audio_path)
@@ -119,30 +125,42 @@ class VideoAssembler:
         
         print(f"📊 Video duration: {video_duration:.2f} seconds")
         
-        # Create background
+        # 2. Create Layers
+        
+        # Layer 0: Background
         background = self._create_background(video_duration)
         
-        # Create segments (character poses + images)
+        # Layer 1: Character Segments (Behind Tweet)
+        # --- UPDATED: Passing video_duration to fix gaps ---
         segments_clips = self._create_segment_clips(
-            production_plan,
-            timestamps,
+            synced_plan,
             character_poses_dir,
             video_images_dir,
             video_duration
         )
         
-        # Create captions
-        caption_clips = self._create_caption_clips(timestamps, video_duration)
+        # Layer 2: Tweet Image (Foreground - On top of Character feet)
+        tweet_clip = None
+        if tweet_image_path:
+            print(f"🐦 Processing Tweet Image: {tweet_image_path}")
+            tweet_clip = self._create_tweet_clip(tweet_image_path, video_duration)
         
-        # Create ticker animation
+        # Layer 3: Captions (Generated via PIL for quality)
+        caption_clips = self._create_caption_clips_pil(original_timestamps, video_duration)
+        
+        # Layer 4: Ticker (With Branding)
         ticker_clips = self._create_ticker_animation(
-            ticker_image_path,
-            ticker_background_path,
+            ticker_data,
             video_duration
         )
         
-        # Combine all clips
-        all_clips = [background] + segments_clips + caption_clips + ticker_clips
+        # 3. Combine Clips (ORDER IS CRITICAL)
+        all_clips = [background] + segments_clips
+        
+        if tweet_clip:
+            all_clips.append(tweet_clip)
+            
+        all_clips = all_clips + caption_clips + ticker_clips
         
         final_video = CompositeVideoClip(
             all_clips, 
@@ -152,14 +170,17 @@ class VideoAssembler:
         # Add audio
         if background_music_path and Path(background_music_path).exists():
             music = AudioFileClip(background_music_path).with_volume_scaled(0.15)
-            music = music.with_duration(video_duration)
+            if music.duration < video_duration:
+                music = music.with_effects([AudioLoop(duration=video_duration)])
+            else:
+                music = music.with_duration(video_duration)
             final_audio = CompositeAudioClip([narration_audio, music])
         else:
             final_audio = narration_audio
         
         final_video = final_video.with_audio(final_audio)
         
-        # Export video
+        # Export
         print(f"💾 Exporting video to: {output_path}")
         final_video.write_videofile(
             output_path,
@@ -174,246 +195,353 @@ class VideoAssembler:
         return output_path
     
     def _load_json(self, path: str) -> Dict:
-        """Load JSON file"""
         with open(path, 'r', encoding='utf-8') as f:
             return json.load(f)
     
     def _create_background(self, duration: float) -> ColorClip:
-        """Create solid color background"""
         return ColorClip(
             size=(self.config.video_width, self.config.video_height),
             color=self.config.background_color,
             duration=duration
         )
     
-    def _create_segment_clips(
-        self,
-        production_plan: Dict,
-        timestamps: Dict,
-        character_poses_dir: str,
-        video_images_dir: str,
-        video_duration: float
-    ) -> List[VideoClip]:
-        """Create clips for character poses and images based on segments"""
-        
+    def _create_tweet_clip(self, image_path: str, duration: float) -> Optional[ImageClip]:
+        if not image_path or not Path(image_path).exists():
+            return None
+        try:
+            img = Image.open(image_path)
+            w_percent = (self.config.tweet_width / float(img.size[0]))
+            h_size = int((float(img.size[1]) * float(w_percent)))
+            
+            if img.mode == 'RGBA':
+                img_resized = img.resize((self.config.tweet_width, h_size), Image.Resampling.LANCZOS)
+            else:
+                img_resized = img.convert('RGB').resize((self.config.tweet_width, h_size), Image.Resampling.LANCZOS)
+            
+            clip = ImageClip(np.array(img_resized))
+            clip = clip.with_duration(duration)
+            
+            pos_x = self.config.tweet_x - (self.config.tweet_width // 2)
+            pos_y = self.config.tweet_y - (h_size // 2)
+            
+            clip = clip.with_position((pos_x, pos_y))
+            return clip
+        except Exception as e:
+            print(f"❌ Error creating tweet clip: {e}")
+            return None
+
+    # --- GAP FIX IMPLEMENTED HERE ---
+    def _create_segment_clips(self, synced_plan: Dict, character_poses_dir: str, video_images_dir: str, total_video_duration: float) -> List[VideoClip]:
+        """
+        Creates character and visual segment clips.
+        GAP FIX: Calculates duration based on the START of the NEXT segment
+        to ensure no empty frames between images.
+        """
         clips = []
-        segments = production_plan.get("segments", [])
-        timestamp_segments = timestamps.get("segments", [])
+        segments = synced_plan.get("segments", [])
+        num_segments = len(segments)
         
-        # Match segments with timestamps
         for i, segment in enumerate(segments):
             segment_id = segment.get("segment_id")
+            start_time = segment.get("start", 0)
             
-            # Find corresponding timestamp
-            if i < len(timestamp_segments):
-                ts = timestamp_segments[i]
-                start_time = ts.get("start", 0)
-                end_time = ts.get("end", video_duration)
+            # --- LOGIC TO FILL GAPS ---
+            # If there is a next segment, this one lasts until the next one starts.
+            if i < num_segments - 1:
+                next_start = segments[i+1].get("start", 0)
+                duration = next_start - start_time
             else:
-                continue
+                # Last segment lasts until the end of the video
+                duration = total_video_duration - start_time
+
+            # Fail-safe: ensure duration is at least 0.1s (avoids negative duration if sync is weird)
+            if duration <= 0: duration = 0.1
             
-            duration = end_time - start_time
-            
-            # Character pose (left side)
+            # 1. Add Character Pose
             pose_data = segment.get("pose", {})
             pose_filename = pose_data.get("filename")
-            
             if pose_filename:
                 pose_path = Path(character_poses_dir) / pose_filename
                 if pose_path.exists():
-                    pose_clip = self._create_image_clip(
-                        str(pose_path),
-                        start_time,
-                        duration,
-                        self.config.character_x,
-                        self.config.character_y,
-                        self.config.character_width,
-                        self.config.character_height
-                    )
-                    clips.append(pose_clip)
+                    clips.append(self._create_image_clip(
+                        str(pose_path), start_time, duration,
+                        self.config.character_x, self.config.character_y,
+                        self.config.character_width, self.config.character_height
+                    ))
             
-            # Generated/Downloaded image (right side)
+            # 2. Add Visual Image
             image_filename = f"segment_{segment_id}.png"
+            gen_path = Path(video_images_dir) / "generated_images" / image_filename
+            dl_path = Path(video_images_dir) / "download_images" / image_filename
             
-            # Check both directories
-            generated_path = Path(video_images_dir) / "generated_images" / image_filename
-            downloaded_path = Path(video_images_dir) / "download_images" / image_filename
+            img_path = None
+            if gen_path.exists(): img_path = gen_path
+            elif dl_path.exists(): img_path = dl_path
             
-            image_path = None
-            if generated_path.exists():
-                image_path = generated_path
-            elif downloaded_path.exists():
-                image_path = downloaded_path
-            
-            if image_path:
-                image_clip = self._create_image_clip(
-                    str(image_path),
-                    start_time,
-                    duration,
-                    self.config.image_x,
-                    self.config.image_y,
-                    self.config.image_width,
-                    self.config.image_height
-                )
-                clips.append(image_clip)
-        
+            if img_path:
+                clips.append(self._create_image_clip(
+                    str(img_path), start_time, duration,
+                    self.config.image_x, self.config.image_y,
+                    self.config.image_width, self.config.image_height
+                ))
         return clips
     
-    def _create_image_clip(
-        self,
-        image_path: str,
-        start_time: float,
-        duration: float,
-        x: int,
-        y: int,
-        width: int,
-        height: int
-    ) -> ImageClip:
-        """Create an image clip with fade in/out and positioning"""
-        
-        # Load and resize image
+    def _create_image_clip(self, image_path: str, start_time: float, duration: float, x: int, y: int, width: int, height: int) -> ImageClip:
         img = Image.open(image_path)
-        
-        # Convert RGBA to RGB if needed, but preserve transparency
         if img.mode == 'RGBA':
             img_resized = img.resize((width, height), Image.Resampling.LANCZOS)
         else:
             img_resized = img.convert('RGB').resize((width, height), Image.Resampling.LANCZOS)
         
-        # Create ImageClip from numpy array
-        # MoviePy v2 still supports this internally
         clip = ImageClip(np.array(img_resized))
-        
-        # Set clip properties using v2 methods
-        clip = clip.with_duration(duration)
-        clip = clip.with_start(start_time)
-        clip = clip.with_position((x - width // 2, y - height // 2))
-        
-        # Apply fade effects using with_effects() method (v2 syntax)
-        fade_duration = min(self.config.image_fade_duration, duration / 4)
-        clip = clip.with_effects([
-            FadeIn(fade_duration),
-            FadeOut(fade_duration)
-        ])
-        
+        clip = clip.with_duration(duration).with_start(start_time).with_position((x - width // 2, y - height // 2))
         return clip
-    
-    def _create_caption_clips(self, timestamps: Dict, video_duration: float) -> List[VideoClip]:
-        """Create caption clips based on word timestamps"""
-        
+
+    # --- CAPTION GENERATOR (PIL) ---
+    def _create_caption_clips_pil(self, timestamps: Dict, video_duration: float) -> List[VideoClip]:
         clips = []
         words = timestamps.get("words", [])
         
+        try:
+            font = ImageFont.truetype(str(self.config.caption_font_path), self.config.caption_fontsize)
+        except:
+            font = ImageFont.load_default()
+
+        text_color = self.config.caption_color
+        if isinstance(text_color, tuple):
+            text_color = tuple(int(c) for c in text_color)
+        
+        stroke_color = self.config.caption_stroke_color
+        stroke_width = self.config.caption_stroke_width
+        
+        pad_x = 15 
+        pad_y = 15
+
+        dummy_draw = ImageDraw.Draw(Image.new("RGBA", (1, 1)))
+
         for word_data in words:
             word = word_data.get("word", "")
             start = word_data.get("start", 0)
             end = word_data.get("end", 0)
             duration = end - start
+            if duration <= 0: continue
             
-            if duration <= 0:
-                continue
-            
-            # Create text clip
             try:
-                txt_clip = TextClip(
-                    text=word,
-                    font=self.config.caption_font_path,
-                    font_size=self.config.caption_fontsize,
-                    color=self.config.caption_color,
-                    stroke_color=self.config.caption_stroke_color,
-                    stroke_width=self.config.caption_stroke_width,
-                    method='caption',
-                    size=(self.config.caption_max_width, None)
+                bbox = dummy_draw.textbbox((0, 0), word, font=font, stroke_width=stroke_width)
+                text_w = bbox[2] - bbox[0]
+                text_h = bbox[3] - bbox[1]
+                
+                img_w = text_w + (pad_x * 2)
+                img_h = text_h + (pad_y * 2)
+                
+                img = Image.new("RGBA", (img_w, img_h), (0, 0, 0, 0))
+                draw = ImageDraw.Draw(img)
+                
+                draw_x = pad_x - bbox[0]
+                draw_y = pad_y - bbox[1]
+                
+                draw.text(
+                    (draw_x, draw_y), 
+                    word, 
+                    font=font, 
+                    fill=text_color, 
+                    stroke_fill=stroke_color, 
+                    stroke_width=stroke_width
                 )
                 
-                # Set clip properties using v2 methods
-                txt_clip = txt_clip.with_duration(duration)
-                txt_clip = txt_clip.with_start(start)
-                txt_clip = txt_clip.with_position(('center', self.config.caption_y))
+                txt_clip = ImageClip(np.array(img))
+                txt_clip = txt_clip.with_duration(duration).with_start(start)
+                txt_clip = txt_clip.with_position((self.config.caption_x, self.config.caption_y))
                 
                 clips.append(txt_clip)
                 
             except Exception as e:
-                print(f"⚠️ Error creating caption for '{word}': {e}")
+                print(f"Error creating caption for '{word}': {e}")
                 continue
-        
+                
         return clips
-    
-    def _create_ticker_animation(
-        self,
-        ticker_image_path: str,
-        ticker_background_path: str,
-        video_duration: float
-    ) -> List[VideoClip]:
-        """Create animated ticker with background"""
+
+    # --- BRANDING BADGE GENERATOR ---
+    def _create_branding_clip(self, duration: float) -> VideoClip:
+        """Generates the XInsight Logo Badge"""
+        scale = 3
+        width = self.config.branding_width * scale
+        height = self.config.ticker_height * scale
+        font_size = int(self.config.ticker_font_size * 1.3 * scale) 
         
+        try:
+            font = ImageFont.truetype(str(self.config.ticker_font_path), font_size)
+        except:
+            font = ImageFont.load_default()
+            
+        bg_color = self.config.ticker_bg_color + (255,) 
+        img = Image.new("RGBA", (width, height), bg_color)
+        draw = ImageDraw.Draw(img)
+        
+        x_text = self.config.branding_text_1
+        insight_text = self.config.branding_text_2
+        
+        x_width = draw.textlength(x_text, font=font)
+        insight_width = draw.textlength(insight_text, font=font)
+        
+        total_text_width = x_width + insight_width
+        start_x = (width - total_text_width) // 2
+        
+        ascent, descent = font.getmetrics()
+        text_height = ascent + descent
+        y_pos = (height - text_height) // 2
+        
+        draw.text((start_x, y_pos), x_text, font=font, fill=self.config.branding_color_1, anchor='lt')
+        draw.text((start_x + x_width, y_pos), insight_text, font=font, fill=self.config.branding_color_2, anchor='lt')
+        
+        final_w = self.config.branding_width
+        final_h = self.config.ticker_height
+        img_resized = img.resize((final_w, final_h), resample=Image.Resampling.LANCZOS)
+        
+        clip = ImageClip(np.array(img_resized))
+        clip = clip.with_duration(duration)
+        clip = clip.with_position((0, self.config.ticker_y))
+        
+        return clip
+
+    # --- TICKER GENERATOR ---
+    def _generate_dynamic_ticker_strip(self, ticker_data: List[Dict]) -> VideoClip:
+        scale_factor = 3 
+        looped_data = ticker_data * 5
+        
+        font_path = str(self.config.ticker_font_path)
+        scaled_font_size = self.config.ticker_font_size * scale_factor
+        
+        try:
+            font = ImageFont.truetype(font_path, scaled_font_size)
+        except:
+            font = ImageFont.load_default()
+
+        color_up = ImageColor.getrgb(self.config.ticker_color_up)
+        color_down = ImageColor.getrgb(self.config.ticker_color_down)
+        color_neutral = ImageColor.getrgb(self.config.ticker_color_neutral)
+        
+        padding = self.config.ticker_item_padding * scale_factor
+        separator = self.config.ticker_separator
+        
+        total_width = 0
+        draw_items = [] 
+        dummy_draw = ImageDraw.Draw(Image.new("RGBA", (1, 1)))
+        
+        for item in looped_data:
+            symbol = item.get("symbol", "???")
+            price = item.get("price", 0.0)
+            change = item.get("change_percent", 0.0)
+            
+            arrow = "▲" if change >= 0 else "▼"
+            change_color = color_up if change >= 0 else color_down
+            
+            sym_text = f"{symbol} "
+            sym_w = int(dummy_draw.textlength(sym_text, font=font))
+            
+            price_text = f"${price:.2f} "
+            price_w = int(dummy_draw.textlength(price_text, font=font))
+            
+            change_text = f"{arrow}{abs(change):.2f}%"
+            change_w = int(dummy_draw.textlength(change_text, font=font))
+            
+            sep_text = separator
+            sep_w = int(dummy_draw.textlength(sep_text, font=font))
+            
+            draw_items.append({
+                "sym": sym_text, "sym_w": sym_w,
+                "price": price_text, "price_w": price_w,
+                "change": change_text, "change_w": change_w, "change_color": change_color,
+                "sep": sep_text, "sep_w": sep_w
+            })
+            
+            total_width += sym_w + price_w + change_w + sep_w + (padding * 2)
+            
+        scaled_height = self.config.ticker_height * scale_factor
+        img = Image.new("RGBA", (total_width, scaled_height), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+        
+        current_x = 0
+        ascent, descent = font.getmetrics()
+        text_height = ascent + descent
+        y_pos = (scaled_height - text_height) // 2
+        
+        t_stroke_w = 2 * scale_factor
+        t_stroke_col = (0,0,0,150)
+        
+        for item in draw_items:
+            draw.text((current_x, y_pos), item['sym'], font=font, fill=color_neutral, anchor='lt', stroke_width=t_stroke_w, stroke_fill=t_stroke_col)
+            current_x += item['sym_w']
+            draw.text((current_x, y_pos), item['price'], font=font, fill=color_neutral, anchor='lt', stroke_width=t_stroke_w, stroke_fill=t_stroke_col)
+            current_x += item['price_w']
+            draw.text((current_x, y_pos), item['change'], font=font, fill=item['change_color'], anchor='lt', stroke_width=t_stroke_w, stroke_fill=t_stroke_col)
+            current_x += item['change_w'] + padding
+            draw.text((current_x, y_pos), item['sep'], font=font, fill=color_neutral, anchor='lt')
+            current_x += item['sep_w'] + padding
+            
+        final_width = int(total_width / scale_factor)
+        final_height = self.config.ticker_height
+        img_resized = img.resize((final_width, final_height), resample=Image.Resampling.LANCZOS)
+        return ImageClip(np.array(img_resized))
+
+    def _create_ticker_animation(self, ticker_data: List[Dict], video_duration: float) -> List[VideoClip]:
         clips = []
         
-        # Ticker background (static, with channel name)
-        ticker_bg = Image.open(ticker_background_path)
-        ticker_bg_resized = ticker_bg.resize((self.config.video_width, self.config.ticker_height))
-        
-        ticker_bg_clip = ImageClip(np.array(ticker_bg_resized))
+        # 1. Background (Black)
+        ticker_bg_clip = ColorClip(
+            size=(self.config.video_width, self.config.ticker_height),
+            color=self.config.ticker_bg_color
+        )
         ticker_bg_clip = ticker_bg_clip.with_duration(video_duration)
         ticker_bg_clip = ticker_bg_clip.with_position((0, self.config.ticker_y))
-        
         clips.append(ticker_bg_clip)
         
-        # Ticker stocks (animated, scrolling)
-        ticker_img = Image.open(ticker_image_path)
-        ticker_width = ticker_img.size[0]
-        ticker_resized = ticker_img.resize((ticker_width, self.config.ticker_height))
+        # 2. Scrolling Text
+        ticker_content_clip = None
+        if ticker_data and len(ticker_data) > 0:
+            print(f"📈 Generando ticker profesional con {len(ticker_data)} acciones...")
+            ticker_content_clip = self._generate_dynamic_ticker_strip(ticker_data)
+            
+        if ticker_content_clip:
+            ticker_content_clip = ticker_content_clip.with_duration(video_duration)
+            ticker_content_clip = ticker_content_clip.with_position(
+                lambda t: (int(self.config.video_width - (t * self.config.ticker_speed)), 0)
+            )
+            
+            mask_w = self.config.video_width
+            mask_h = self.config.ticker_height
+            
+            fade_start_x = self.config.branding_width
+            fade_width = 60 
+            
+            mask_array = np.ones((mask_h, mask_w), dtype=float)
+            mask_array[:, :fade_start_x] = 0.0 
+            
+            for i in range(fade_width):
+                if fade_start_x + i < mask_w:
+                    mask_array[:, fade_start_x + i] = i / fade_width
+            
+            mask_clip = ImageClip(mask_array, is_mask=True).with_duration(video_duration)
+            
+            ticker_container = CompositeVideoClip(
+                [ticker_content_clip], 
+                size=(self.config.video_width, self.config.ticker_height)
+            )
+            ticker_container = ticker_container.with_mask(mask_clip)
+            ticker_container = ticker_container.with_position((0, self.config.ticker_y))
+            
+            clips.append(ticker_container)
         
-        # Calculate fade zone
-        fade_start_x = int(self.config.video_width * (self.config.ticker_fade_start_percent / 100))
-        
-        # Create scrolling ticker with fade
-        def make_frame(t):
-            # Calculate position
-            x_offset = int(self.config.video_width - (t * self.config.ticker_speed))
+        # 3. Branding Badge (The "XInsight" Logo) - sits on top
+        branding_clip = self._create_branding_clip(video_duration)
+        clips.append(branding_clip)
             
-            # Create frame
-            frame = np.zeros((self.config.ticker_height, self.config.video_width, 3), dtype=np.uint8)
-            
-            # Get ticker section
-            ticker_array = np.array(ticker_resized)
-            
-            # Handle looping
-            x_offset = x_offset % ticker_width
-            
-            # Calculate which part of ticker to show
-            if x_offset > 0:
-                # Ticker hasn't fully scrolled yet
-                visible_width = min(ticker_width - x_offset, self.config.video_width)
-                frame[:, :visible_width] = ticker_array[:, x_offset:x_offset + visible_width]
-            else:
-                # Ticker is looping
-                x_offset = abs(x_offset)
-                first_part_width = min(ticker_width - x_offset, self.config.video_width)
-                frame[:, :first_part_width] = ticker_array[:, x_offset:x_offset + first_part_width]
-                
-                # Add loop part if needed
-                if first_part_width < self.config.video_width:
-                    remaining = self.config.video_width - first_part_width
-                    frame[:, first_part_width:first_part_width + remaining] = ticker_array[:, :remaining]
-            
-            # Apply fade gradient near the left edge
-            for x in range(fade_start_x):
-                alpha = x / fade_start_x
-                frame[:, x] = (frame[:, x] * alpha).astype(np.uint8)
-            
-            return frame
-        
-        ticker_clip = VideoClip(make_frame, duration=video_duration)
-        ticker_clip = ticker_clip.with_position((0, self.config.ticker_y))
-        
-        clips.append(ticker_clip)
-        
         return clips
 
 
 def assemble_video(
-    production_plan_path: str,
+    manual_ticker_data: Optional[list],
+    synced_plan_path: str,
     timestamps_path: str,
     narration_audio_path: str,
     background_music_path: Optional[str],
@@ -422,32 +550,13 @@ def assemble_video(
     character_poses_dir: str,
     video_images_dir: str,
     output_path: str,
+    tweet_image_path: Optional[str] = None,
     config: Optional[VideoConfig] = None
 ) -> str:
-    """
-    Convenience function to assemble video
-    
-    Example usage:
-        config = VideoConfig()
-        config.caption_color = "yellow"
-        config.ticker_speed = 150
-        
-        assemble_video(
-            production_plan_path="data/create_production_plan/output/production_plan.json",
-            timestamps_path="data/video_audio/elevenlabs/timestamps.json",
-            narration_audio_path="data/video_audio/elevenlabs/narration.mp3",
-            background_music_path="data/music/background.mp3",
-            ticker_image_path="data/video_ticker/ticker.png",
-            ticker_background_path="data/video_ticker/ticker_background.png",
-            character_poses_dir="data/character_poses",
-            video_images_dir="data/video_images",
-            output_path="output/final_video.mp4",
-            config=config
-        )
-    """
     assembler = VideoAssembler(config)
     return assembler.create_video(
-        production_plan_path=production_plan_path,
+        manual_ticker_data=manual_ticker_data,
+        synced_plan_path=synced_plan_path,
         timestamps_path=timestamps_path,
         narration_audio_path=narration_audio_path,
         background_music_path=background_music_path,
@@ -455,5 +564,6 @@ def assemble_video(
         ticker_background_path=ticker_background_path,
         character_poses_dir=character_poses_dir,
         video_images_dir=video_images_dir,
-        output_path=output_path
+        output_path=output_path,
+        tweet_image_path=tweet_image_path
     )
