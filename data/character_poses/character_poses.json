@@ -1,0 +1,351 @@
+{
+  "test_mode": false,
+  "total_poses": 42,
+  "categories": {
+    "presenting": 8,
+    "talking": 9,
+    "reacting": 7,
+    "emphasizing": 9,
+    "neutral": 9
+  },
+  "poses": [
+    {
+      "pose_number": 2,
+      "category": "presenting",
+      "name": "gesturing_right_open",
+      "description": "Character with open hand gesturing toward the RIGHT, presenting the screen content",
+      "file_path": "output\\character_poses\\nobg\\pose_02_presenting_gesturing_right_open_nobg.png",
+      "filename": "pose_02_presenting_gesturing_right_open_nobg.png"
+    },
+    {
+      "pose_number": 3,
+      "category": "presenting",
+      "name": "both_hands_presenting_right",
+      "description": "Character with both hands open, presenting toward the RIGHT side screen",
+      "file_path": "output\\character_poses\\nobg\\pose_03_presenting_both_hands_presenting_right_nobg.png",
+      "filename": "pose_03_presenting_both_hands_presenting_right_nobg.png"
+    },
+    {
+      "pose_number": 4,
+      "category": "presenting",
+      "name": "gesturing_up_right",
+      "description": "Character gesturing upward and to the RIGHT with excited expression about screen content",
+      "file_path": "output\\character_poses\\nobg\\pose_04_presenting_gesturing_up_right_nobg.png",
+      "filename": "pose_04_presenting_gesturing_up_right_nobg.png"
+    },
+    {
+      "pose_number": 5,
+      "category": "presenting",
+      "name": "palm_out_right",
+      "description": "Character with palm extended toward the RIGHT, showcasing screen information",
+      "file_path": "output\\character_poses\\nobg\\pose_05_presenting_palm_out_right_nobg.png",
+      "filename": "pose_05_presenting_palm_out_right_nobg.png"
+    },
+    {
+      "pose_number": 6,
+      "category": "presenting",
+      "name": "open_arm_welcome_right",
+      "description": "Character with arm extended toward the RIGHT in welcoming gesture to screen",
+      "file_path": "output\\character_poses\\nobg\\pose_06_presenting_open_arm_welcome_right_nobg.png",
+      "filename": "pose_06_presenting_open_arm_welcome_right_nobg.png"
+    },
+    {
+      "pose_number": 7,
+      "category": "presenting",
+      "name": "explaining_hand_right",
+      "description": "Character with hand raised, gesturing toward the RIGHT while explaining",
+      "file_path": "output\\character_poses\\nobg\\pose_07_presenting_explaining_hand_right_nobg.png",
+      "filename": "pose_07_presenting_explaining_hand_right_nobg.png"
+    },
+    {
+      "pose_number": 8,
+      "category": "presenting",
+      "name": "confident_presenting",
+      "description": "Character standing confidently while presenting, body angled slightly toward the RIGHT",
+      "file_path": "output\\character_poses\\nobg\\pose_08_presenting_confident_presenting_nobg.png",
+      "filename": "pose_08_presenting_confident_presenting_nobg.png"
+    },
+    {
+      "pose_number": 9,
+      "category": "presenting",
+      "name": "thinking_looking_right",
+      "description": "Character with hand on chin, looking thoughtfully toward the RIGHT screen",
+      "file_path": "output\\character_poses\\nobg\\pose_09_presenting_thinking_looking_right_nobg.png",
+      "filename": "pose_09_presenting_thinking_looking_right_nobg.png"
+    },
+    {
+      "pose_number": 11,
+      "category": "talking",
+      "name": "casual_talking",
+      "description": "Character in casual talking pose to camera, relaxed expression, body open",
+      "file_path": "output\\character_poses\\nobg\\pose_11_talking_casual_talking_nobg.png",
+      "filename": "pose_11_talking_casual_talking_nobg.png"
+    },
+    {
+      "pose_number": 12,
+      "category": "talking",
+      "name": "animated_explaining",
+      "description": "Character with animated expression while explaining, hands active near body",
+      "file_path": "output\\character_poses\\nobg\\pose_12_talking_animated_explaining_nobg.png",
+      "filename": "pose_12_talking_animated_explaining_nobg.png"
+    },
+    {
+      "pose_number": 13,
+      "category": "talking",
+      "name": "serious_discussion",
+      "description": "Character in serious discussion pose facing camera, focused expression",
+      "file_path": "output\\character_poses\\nobg\\pose_13_talking_serious_discussion_nobg.png",
+      "filename": "pose_13_talking_serious_discussion_nobg.png"
+    },
+    {
+      "pose_number": 14,
+      "category": "talking",
+      "name": "enthusiastic_talking",
+      "description": "Character talking with enthusiastic energy, gesturing naturally",
+      "file_path": "output\\character_poses\\nobg\\pose_14_talking_enthusiastic_talking_nobg.png",
+      "filename": "pose_14_talking_enthusiastic_talking_nobg.png"
+    },
+    {
+      "pose_number": 15,
+      "category": "talking",
+      "name": "counting_fingers",
+      "description": "Character counting points on fingers while facing camera",
+      "file_path": "output\\character_poses\\nobg\\pose_15_talking_counting_fingers_nobg.png",
+      "filename": "pose_15_talking_counting_fingers_nobg.png"
+    },
+    {
+      "pose_number": 16,
+      "category": "talking",
+      "name": "emphatic_gesture",
+      "description": "Character making emphatic hand gesture while speaking to camera",
+      "file_path": "output\\character_poses\\nobg\\pose_16_talking_emphatic_gesture_nobg.png",
+      "filename": "pose_16_talking_emphatic_gesture_nobg.png"
+    },
+    {
+      "pose_number": 18,
+      "category": "talking",
+      "name": "looking_at_screen",
+      "description": "Character looking toward the RIGHT screen while talking about it",
+      "file_path": "output\\character_poses\\nobg\\pose_18_talking_looking_at_screen_nobg.png",
+      "filename": "pose_18_talking_looking_at_screen_nobg.png"
+    },
+    {
+      "pose_number": 19,
+      "category": "talking",
+      "name": "hand_to_chest",
+      "description": "Character with hand to chest, sincere expression facing camera",
+      "file_path": "output\\character_poses\\nobg\\pose_19_talking_hand_to_chest_nobg.png",
+      "filename": "pose_19_talking_hand_to_chest_nobg.png"
+    },
+    {
+      "pose_number": 20,
+      "category": "talking",
+      "name": "two_hands_explaining",
+      "description": "Character using both hands in front to explain concept to camera",
+      "file_path": "output\\character_poses\\nobg\\pose_20_talking_two_hands_explaining_nobg.png",
+      "filename": "pose_20_talking_two_hands_explaining_nobg.png"
+    },
+    {
+      "pose_number": 23,
+      "category": "reacting",
+      "name": "impressed_nod",
+      "description": "Character nodding with impressed expression toward the RIGHT",
+      "file_path": "output\\character_poses\\nobg\\pose_23_reacting_impressed_nod_nobg.png",
+      "filename": "pose_23_reacting_impressed_nod_nobg.png"
+    },
+    {
+      "pose_number": 25,
+      "category": "reacting",
+      "name": "excited_celebration",
+      "description": "Character celebrating with excited expression, reacting to screen content",
+      "file_path": "output\\character_poses\\nobg\\pose_25_reacting_excited_celebration_nobg.png",
+      "filename": "pose_25_reacting_excited_celebration_nobg.png"
+    },
+    {
+      "pose_number": 26,
+      "category": "reacting",
+      "name": "concerned_worry",
+      "description": "Character showing concerned worried expression looking toward the RIGHT",
+      "file_path": "output\\character_poses\\nobg\\pose_26_reacting_concerned_worry_nobg.png",
+      "filename": "pose_26_reacting_concerned_worry_nobg.png"
+    },
+    {
+      "pose_number": 27,
+      "category": "reacting",
+      "name": "disappointed_sigh",
+      "description": "Character with disappointed expression facing camera, sighing",
+      "file_path": "output\\character_poses\\nobg\\pose_27_reacting_disappointed_sigh_nobg.png",
+      "filename": "pose_27_reacting_disappointed_sigh_nobg.png"
+    },
+    {
+      "pose_number": 28,
+      "category": "reacting",
+      "name": "happy_smile",
+      "description": "Character with genuine happy smile facing camera",
+      "file_path": "output\\character_poses\\nobg\\pose_28_reacting_happy_smile_nobg.png",
+      "filename": "pose_28_reacting_happy_smile_nobg.png"
+    },
+    {
+      "pose_number": 29,
+      "category": "reacting",
+      "name": "confused_shrug",
+      "description": "Character shrugging with confused expression facing camera",
+      "file_path": "output\\character_poses\\nobg\\pose_29_reacting_confused_shrug_nobg.png",
+      "filename": "pose_29_reacting_confused_shrug_nobg.png"
+    },
+    {
+      "pose_number": 30,
+      "category": "reacting",
+      "name": "thoughtful_consideration",
+      "description": "Character in thoughtful consideration, looking toward the RIGHT screen",
+      "file_path": "output\\character_poses\\nobg\\pose_30_reacting_thoughtful_consideration_nobg.png",
+      "filename": "pose_30_reacting_thoughtful_consideration_nobg.png"
+    },
+    {
+      "pose_number": 31,
+      "category": "emphasizing",
+      "name": "fist_pump",
+      "description": "Character with fist pump facing camera, powerful energy",
+      "file_path": "output\\character_poses\\nobg\\pose_31_emphasizing_fist_pump_nobg.png",
+      "filename": "pose_31_emphasizing_fist_pump_nobg.png"
+    },
+    {
+      "pose_number": 32,
+      "category": "emphasizing",
+      "name": "pointing_right_emphasis",
+      "description": "Character pointing toward the RIGHT screen with strong emphasis",
+      "file_path": "output\\character_poses\\nobg\\pose_32_emphasizing_pointing_right_emphasis_nobg.png",
+      "filename": "pose_32_emphasizing_pointing_right_emphasis_nobg.png"
+    },
+    {
+      "pose_number": 33,
+      "category": "emphasizing",
+      "name": "arms_crossed_confident",
+      "description": "Character with arms crossed facing camera, confident authority",
+      "file_path": "output\\character_poses\\nobg\\pose_33_emphasizing_arms_crossed_confident_nobg.png",
+      "filename": "pose_33_emphasizing_arms_crossed_confident_nobg.png"
+    },
+    {
+      "pose_number": 34,
+      "category": "emphasizing",
+      "name": "leaning_forward",
+      "description": "Character leaning forward toward camera with intensity",
+      "file_path": "output\\character_poses\\nobg\\pose_34_emphasizing_leaning_forward_nobg.png",
+      "filename": "pose_34_emphasizing_leaning_forward_nobg.png"
+    },
+    {
+      "pose_number": 35,
+      "category": "emphasizing",
+      "name": "hands_together_serious",
+      "description": "Character with hands together facing camera, serious tone",
+      "file_path": "output\\character_poses\\nobg\\pose_35_emphasizing_hands_together_serious_nobg.png",
+      "filename": "pose_35_emphasizing_hands_together_serious_nobg.png"
+    },
+    {
+      "pose_number": 36,
+      "category": "emphasizing",
+      "name": "raised_hand_stop",
+      "description": "Character with raised hand in stop gesture toward camera",
+      "file_path": "output\\character_poses\\nobg\\pose_36_emphasizing_raised_hand_stop_nobg.png",
+      "filename": "pose_36_emphasizing_raised_hand_stop_nobg.png"
+    },
+    {
+      "pose_number": 37,
+      "category": "emphasizing",
+      "name": "clapping_hands",
+      "description": "Character clapping hands together for emphasis",
+      "file_path": "output\\character_poses\\nobg\\pose_37_emphasizing_clapping_hands_nobg.png",
+      "filename": "pose_37_emphasizing_clapping_hands_nobg.png"
+    },
+    {
+      "pose_number": 38,
+      "category": "emphasizing",
+      "name": "dramatic_pause",
+      "description": "Character in dramatic pause facing camera",
+      "file_path": "output\\character_poses\\nobg\\pose_38_emphasizing_dramatic_pause_nobg.png",
+      "filename": "pose_38_emphasizing_dramatic_pause_nobg.png"
+    },
+    {
+      "pose_number": 39,
+      "category": "emphasizing",
+      "name": "strong_stance",
+      "description": "Character in strong grounded stance facing camera",
+      "file_path": "output\\character_poses\\nobg\\pose_39_emphasizing_strong_stance_nobg.png",
+      "filename": "pose_39_emphasizing_strong_stance_nobg.png"
+    },
+    {
+      "pose_number": 41,
+      "category": "neutral",
+      "name": "standing_neutral",
+      "description": "Character standing in neutral professional position facing camera",
+      "file_path": "output\\character_poses\\nobg\\pose_41_neutral_standing_neutral_nobg.png",
+      "filename": "pose_41_neutral_standing_neutral_nobg.png"
+    },
+    {
+      "pose_number": 42,
+      "category": "neutral",
+      "name": "relaxed_waiting",
+      "description": "Character in relaxed waiting pose, professional demeanor",
+      "file_path": "output\\character_poses\\nobg\\pose_42_neutral_relaxed_waiting_nobg.png",
+      "filename": "pose_42_neutral_relaxed_waiting_nobg.png"
+    },
+    {
+      "pose_number": 43,
+      "category": "neutral",
+      "name": "professional_stance",
+      "description": "Character in professional business stance facing camera",
+      "file_path": "output\\character_poses\\nobg\\pose_43_neutral_professional_stance_nobg.png",
+      "filename": "pose_43_neutral_professional_stance_nobg.png"
+    },
+    {
+      "pose_number": 45,
+      "category": "neutral",
+      "name": "attentive_ready",
+      "description": "Character in attentive ready-to-present pose",
+      "file_path": "output\\character_poses\\nobg\\pose_45_neutral_attentive_ready_nobg.png",
+      "filename": "pose_45_neutral_attentive_ready_nobg.png"
+    },
+    {
+      "pose_number": 46,
+      "category": "neutral",
+      "name": "calm_composure",
+      "description": "Character with calm composed demeanor facing camera",
+      "file_path": "output\\character_poses\\nobg\\pose_46_neutral_calm_composure_nobg.png",
+      "filename": "pose_46_neutral_calm_composure_nobg.png"
+    },
+    {
+      "pose_number": 47,
+      "category": "neutral",
+      "name": "ready_position",
+      "description": "Character in ready-to-present position, hands relaxed",
+      "file_path": "output\\character_poses\\nobg\\pose_47_neutral_ready_position_nobg.png",
+      "filename": "pose_47_neutral_ready_position_nobg.png"
+    },
+    {
+      "pose_number": 48,
+      "category": "neutral",
+      "name": "standing_angled",
+      "description": "Character standing at slight angle, body open to camera",
+      "file_path": "output\\character_poses\\nobg\\pose_48_neutral_standing_angled_nobg.png",
+      "filename": "pose_48_neutral_standing_angled_nobg.png"
+    },
+    {
+      "pose_number": 49,
+      "category": "neutral",
+      "name": "hands_relaxed",
+      "description": "Character with hands naturally relaxed at sides",
+      "file_path": "output\\character_poses\\nobg\\pose_49_neutral_hands_relaxed_nobg.png",
+      "filename": "pose_49_neutral_hands_relaxed_nobg.png"
+    },
+    {
+      "pose_number": 50,
+      "category": "neutral",
+      "name": "professional_waiting",
+      "description": "Character in professional waiting pose, ready to engage",
+      "file_path": "output\\character_poses\\nobg\\pose_50_neutral_professional_waiting_nobg.png",
+      "filename": "pose_50_neutral_professional_waiting_nobg.png"
+    }
+  ],
+  "generated_at": "78683.421",
+  "reference_image": "src\\image\\base_image.png"
+}
