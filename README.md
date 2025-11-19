@@ -3,11 +3,11 @@ Only me and God know how this works...
 This creates videos for my YouTube channel
 -->
 
-# XInsight Finance - Automated YouTube Shorts Pipeline
+# XInsight Finance - Automated YouTube videos Pipeline
 
 ![Channel Logo](https://yt3.googleusercontent.com/XqPYehZWVS2VjDx-30WSUhadtFAMdu49tfVNRJrvbhljOS32Ti7ij2mBDV7nvnSzU_tzdrgZEQ=s160-c-k-c0x00ffffff-no-rj)
 
-AI-powered system for creating YouTube Shorts from viral financial tweets.
+AI-powered system for creating YouTube videos from viral financial tweets.
 
 **Production Stats:**
 - A 1-minute video takes approximately 4 minutes to assemble
@@ -18,8 +18,6 @@ AI-powered system for creating YouTube Shorts from viral financial tweets.
 **XInsight Finance** - Financial insights in short format
 
 [![Subscribe](https://img.shields.io/badge/Subscribe-YouTube-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/@XInsightFinance)
-
-Channel Color: ![#5eea45](https://via.placeholder.com/15/5eea45/5eea45.png) `#5eea45`
 
 ## Project Structure
 
@@ -148,17 +146,3 @@ data/
 | **OpenAI** | DALL-E 3 | Image generation from prompts |
 | **OpenAI** | Whisper | Audio transcription & timestamps |
 | **ElevenLabs** | Multilingual v2 | Voice narration (Voice ID: yl2ZDV1MzN4HbQJbMihG) |
-
-## Video Configuration
-
-The final video assembly uses these default settings (all customizable in `base_handler.py`):
-
-- **Resolution:** 1920x1080 @ 30fps
-- **Background:** White (#FFFFFF)
-- **Caption Color:** #5eea45 (Channel color)
-- **Character Pose:** 700x700px @ left side
-- **Visual Assets:** 700x700px @ right side
-- **Tweet Image:** 800px wide @ center bottom
-- **Stock Ticker:** 80px height @ bottom
-- **Font:** Montserrat Bold (80px)
-- **Transitions:** 0.3s fade effects
