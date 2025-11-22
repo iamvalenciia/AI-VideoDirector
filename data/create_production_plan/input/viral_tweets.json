@@ -1,325 +1,271 @@
 {
     "viral_tweets": [
         {
-            "tweet_link": "https://x.com/APompliano/status/1989379499381952904",
-            "content": "There is panic in the markets.\n\nBut emotional investors are losing investors.\n\nThis too shall pass.",
-            "username": "APompliano",
-            "name": "Anthony Pompliano ",
+            "tweet_link": "https://x.com/WatcherGuru/status/1991612953687388210",
+            "content": "JUST IN: $1 trillion wiped out from the US stock market cap.\n\n$120,000,000,000 wiped out from the crypto market cap today.",
+            "username": "WatcherGuru",
+            "name": "Watcher.Guru",
             "verified": true,
             "verify_type": "blue",
-            "profile_picture_link": "https://pbs.twimg.com/profile_images/1547787118243561478/PxWzJo1H.jpg",
-            "views": 317778,
-            "likes": 1316,
-            "retweets": 94,
-            "replies": 152,
-            "engagement_rate": 0.49,
-            "posted_date": "2025-11-14T17:06:48Z",
-            "analisis_sentimiento": "neutral",
-            "contexto_resumido": "Viral due to addressing investor panic amid market volatility, offering reassurance during a dip.",
-            "punto_clave_inversor": "Emotional decisions during market panic lead to losses; patience is key.",
-            "contraargumento_breve": "Market downturns may require strategic adjustments rather than passive waiting.",
-            "related_stocks": [],
-            "image_links": [
-                "https://pbs.twimg.com/amplify_video_thumb/1989368015993839617/img/swKiIUwhxmnUWIjn.jpg",
-                "https://pbs.twimg.com/media/G50m7WMXwAAgBOG.jpg"
+            "profile_picture_link": "https://pbs.twimg.com/profile_images/1641221212578754562/DfiC0KW2.png",
+            "views": 1052378,
+            "likes": 16752,
+            "retweets": 2593,
+            "replies": 1274,
+            "engagement_rate": 0.0159,
+            "posted_date": "2025-11-20T21:01:45Z",
+            "analisis_sentimiento": "bearish",
+            "contexto_resumido": "This tweet captures a sharp, synchronized decline across US equities and cryptocurrencies, erasing over $1.12 trillion in combined market value in a single day amid heightened volatility. It underscores the interconnected risks between traditional and digital assets, amplified by recent economic data suggesting a cooling labor market. For serious investors, this event signals potential for broader risk-off sentiment, prompting a reevaluation of portfolio exposures to high-beta sectors like tech and crypto.",
+            "punto_clave_inversor": "Market corrections of this magnitude remind us that diversification across asset classes is essential, but true resilience comes from maintaining a long-term horizon over reactive selling.",
+            "contraargumento_breve": "While the headline losses appear dramatic, historical data shows such intraday swings often precede recoveries, especially when fundamentals like corporate earnings remain robust.",
+            "related_stocks": [
+                "SPY",
+                "QQQ",
+                "BTC",
+                "NVDA"
             ],
             "image_descriptions": [
-                "Thumbnail of a video discussing market panic and investor emotions.",
-                "Image criticizing politicians for wanting to ban AI to prevent profits."
+                "A line chart showing the S&P 500 index dropping sharply from around 5,800 to below 5,600 over the trading day, with a red downward arrow overlay and '$1 Trillion Wiped Out' text.",
+                "A line chart depicting Bitcoin's price plunging from $92,000 to under $88,000 in 24 hours, highlighted in red with '$120 Billion Wiped Out' annotation."
             ],
             "top_comments": [
                 {
-                    "username": "phonx321",
-                    "name": "Suez",
-                    "comment_text": "Oh yes, because you're a credible source  (sarcasm)",
-                    "likes": 11,
-                    "verified": false,
-                    "verify_type": "none",
-                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1973634734493503488/DJmyJExI.jpg",
-                    "profile_link": "https://x.com/phonx321",
-                    "retweets": 0,
-                    "views": 62
-                },
-                {
-                    "username": "lihaghan12",
-                    "name": "ali haghani",
-                    "comment_text": "When in army how many blows to your head. Why resip.......",
-                    "likes": 8,
-                    "verified": false,
-                    "verify_type": "none",
-                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1505216570074693632/DNIsBDrR.png",
-                    "profile_link": "https://x.com/lihaghan12",
-                    "retweets": 0,
-                    "views": 20
-                }
-            ]
-        },
-        {
-            "tweet_link": "https://x.com/BitcoinArchive/status/1989706539666460736",
-            "content": "Bitcoin will never go over $100K again.\nJust buy stocks at 25x earnings, and get yourself a 50 year mortgage.  \n\nThen sit back and enjoy your safe 9 to 5.\n\nAi is a scam anyhow, and it will never truly replace you because your company values you as a person.",
-            "username": "BitcoinArchive",
-            "name": "Bitcoin Archive",
-            "verified": true,
-            "verify_type": "blue",
-            "profile_picture_link": "https://pbs.twimg.com/profile_images/1988731421440057344/K5XjVEkh.jpg",
-            "views": 196505,
-            "likes": 2440,
-            "retweets": 343,
-            "replies": 282,
-            "engagement_rate": 1.6,
-            "posted_date": "2025-11-15T14:46:20Z",
-            "analisis_sentimiento": "bullish",
-            "contexto_resumido": "Viral for its sarcastic take on Bitcoin skepticism during a price dip, highlighting investor sentiment.",
-            "punto_clave_inversor": "Bitcoin offers potential high returns compared to traditional investments like stocks.",
-            "contraargumento_breve": "Bitcoin's volatility makes it riskier than stable stock investments.",
-            "related_stocks": [],
-            "image_links": [
-                "https://pbs.twimg.com/media/G5zbHiTXIAAxSRq.jpg",
-                "https://pbs.twimg.com/media/G50o7OAWwAATABd.jpg",
-                "https://pbs.twimg.com/media/G50BzoeXIAANFQX.jpg",
-                "https://pbs.twimg.com/media/G5z3f3_WsAANPle.jpg",
-                "https://pbs.twimg.com/media/G5zoF2pXAAECSDw.jpg",
-                "https://pbs.twimg.com/media/G5zlRZlXoAA5ahi.jpg",
-                "https://pbs.twimg.com/media/G5zj_gIXYAAsrbr.jpg",
-                "https://pbs.twimg.com/media/G5zaCgQXIAAPA8s.jpg",
-                "https://pbs.twimg.com/media/G5y6QEDWEAADR2S.jpg",
-                "https://pbs.twimg.com/media/G5v8F95WAAARGZO.jpg"
-            ],
-            "image_descriptions": [
-                "Satirical image contrasting Bitcoin and traditional finance.",
-                "Image of Steak n' Shake opening in El Salvador with Bitcoin theme.",
-                "Chart showing Bitcoin RSI oversold level.",
-                "Quote from Gary Kasparov on Bitcoin.",
-                "US Senator using Bitcoin for exchange.",
-                "BlackRock's Bitcoin ETF in Harvard's holdings.",
-                "Amazon 20-year bull market chart.",
-                "Bitcoin ETF holdings by Harvard.",
-                "Bitcoin Fear and Greed Index at extreme fear.",
-                "Harvard increasing Bitcoin exposure."
-            ],
-            "top_comments": [
-                {
-                    "username": "0xDondo",
-                    "name": "Dondo",
-                    "comment_text": "the most painful part is some people will read this and nod along",
-                    "likes": 79,
-                    "verified": false,
-                    "verify_type": "none",
-                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1948519987494133760/eR82efns.jpg",
-                    "profile_link": "https://x.com/0xDondo",
-                    "retweets": 0,
-                    "views": 4785
-                },
-                {
-                    "username": "ZoloStefano",
-                    "name": "Zolo Stefano",
-                    "comment_text": "BUY STOCKS AT 25X EARNINGS?? 50 YEAR MORTGAGE?? BRO I’D RATHER GAMBLE ON DOG COINS ",
-                    "likes": 20,
-                    "verified": false,
-                    "verify_type": "none",
-                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1978846286649368576/8P98IbT_.jpg",
-                    "profile_link": "https://x.com/ZoloStefano",
-                    "retweets": 2,
-                    "views": 3314
-                }
-            ]
-        },
-        {
-            "tweet_link": "https://x.com/brewmarkets/status/1989465239583334817",
-            "content": "Warren Buffett's portfolio:\n\nStocks: $308.9 billion\nCash: $381.7 billion",
-            "username": "brewmarkets",
-            "name": "Brew Markets",
-            "verified": true,
-            "verify_type": "blue",
-            "profile_picture_link": "https://pbs.twimg.com/profile_images/1790065022716043264/gXLbsY4L.jpg",
-            "views": 156475,
-            "likes": 2453,
-            "retweets": 439,
-            "replies": 77,
-            "engagement_rate": 1.9,
-            "posted_date": "2025-11-14T22:47:30Z",
-            "analisis_sentimiento": "neutral",
-            "contexto_resumido": "Viral for highlighting Buffett's cash-heavy portfolio amid market uncertainty.",
-            "punto_clave_inversor": "Holding substantial cash can provide opportunities during market downturns.",
-            "contraargumento_breve": "Cash holdings may miss out on potential stock market gains.",
-            "related_stocks": [],
-            "image_links": [
-                "https://pbs.twimg.com/media/G5wAFypXgAA1lAJ.jpg",
-                "https://pbs.twimg.com/media/G5v5scuWkAAYvmt.jpg",
-                "https://pbs.twimg.com/media/G5vrR_gWwAAMJ9V.jpg",
-                "https://pbs.twimg.com/media/G5vbCo_W0AAF19z.jpg",
-                "https://pbs.twimg.com/media/G5uucReXMAAarI2.jpg"
-            ],
-            "image_descriptions": [
-                "Infographic of Warren Buffett's portfolio allocation.",
-                "Berkshire Hathaway's stake in Alphabet.",
-                "Announcement of new position in Alphabet.",
-                "Probability of December rate cut.",
-                "Chart comparing Bitcoin and U.S. Treasury bills performance."
-            ],
-            "top_comments": [
-                {
-                    "username": "DrewOrr25",
-                    "name": "Drew Orr",
-                    "comment_text": "My portfolio:\n\nStocks: $500\nCash: $300",
-                    "likes": 60,
-                    "verified": false,
-                    "verify_type": "none",
-                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1843115202532794368/TBkW-zvB.jpg",
-                    "profile_link": "https://x.com/DrewOrr25",
-                    "retweets": 1,
-                    "views": 2555
-                },
-                {
-                    "username": "rogersterling__",
-                    "name": "Roger Sterling",
-                    "comment_text": "and their famous google position is 1% of their cash lol",
-                    "likes": 11,
-                    "verified": false,
-                    "verify_type": "none",
-                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1699237652497608704/G5FLjwrr.jpg",
-                    "profile_link": "https://x.com/rogersterling",
-                    "retweets": 0,
-                    "views": 1264
-                }
-            ]
-        },
-        {
-            "tweet_link": "https://x.com/rajatsonifnance/status/1989366447345484147",
-            "content": "Since mid-October, Bitcoin has gone from $126K to $94K\n\nThat's a drop of ~25.5%\n\n20-35% pullbacks are NORMAL during bull markets\n\nUse this as an opportunity to stack more",
-            "username": "rajatsonifnance",
-            "name": "Rajat Soni, CFA",
-            "verified": true,
-            "verify_type": "blue",
-            "profile_picture_link": "https://pbs.twimg.com/profile_images/1516875106454224896/B51-9qxJ.jpg",
-            "views": 161596,
-            "likes": 3556,
-            "retweets": 625,
-            "replies": 379,
-            "engagement_rate": 2.68,
-            "posted_date": "2025-11-14T16:14:56Z",
-            "analisis_sentimiento": "bullish",
-            "contexto_resumido": "Viral for reassuring investors during Bitcoin's dip, framing it as normal bull market behavior.",
-            "punto_clave_inversor": "View pullbacks as buying opportunities in bull markets.",
-            "contraargumento_breve": "Pullbacks could signal the start of a bear market.",
-            "related_stocks": [],
-            "image_links": [
-                "https://pbs.twimg.com/media/G5umPX2XUAAU_bl.jpg",
-                "https://pbs.twimg.com/media/G527JwiXIAAdmT1.jpg",
-                "https://pbs.twimg.com/media/G52EJq7XQAA5MC3.jpg"
-            ],
-            "image_descriptions": [
-                "Chart showing Bitcoin price drop from $126K to $94K.",
-                "Image related to a gross topic, potentially satirical.",
-                "Fear and Greed Index chart for Bitcoin."
-            ],
-            "top_comments": [
-                {
-                    "username": "PeterSchiff",
-                    "name": "Peter Schiff",
-                    "comment_text": "Actually such a pullback means that Bitcoin is now in a bear market.",
-                    "likes": 62,
+                    "username": "RampCapitalLLC",
+                    "name": "Ramp Capital",
+                    "comment_text": "CLOSE THE MARKET!!!",
+                    "likes": 8287,
                     "verified": true,
                     "verify_type": "blue",
-                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1679540487743496205/LcNCN4tX.jpg",
-                    "profile_link": "https://x.com/PeterSchiff",
-                    "retweets": 1,
-                    "views": 3755
+                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1536508197770518528/M5sFqRBX.jpg",
+                    "profile_link": "https://x.com/RampCapitalLLC",
+                    "retweets": 312,
+                    "views": 261925
                 },
                 {
-                    "username": "staccunder",
-                    "name": "stacc",
-                    "comment_text": "Why buy at 94k when you can wait and buy at 46.5",
-                    "likes": 58,
+                    "username": "BullTheoryio",
+                    "name": "Bull Theory",
+                    "comment_text": "Today's market dump makes absolutely no sense. S&P 500 wiped out $1.5 trillion in value from today's high. Bitcoin dropped to $87,000. Crypto market cap is below $2.95T. And the craziest part? There wasn’t a single negative headline today.",
+                    "likes": 11131,
                     "verified": false,
                     "verify_type": "none",
-                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1988907092762116096/2ISL1V7s.jpg",
-                    "profile_link": "https://x.com/staccunder",
-                    "retweets": 0,
-                    "views": 4457
+                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1954300142812581888/HkIuVtQ6.jpg",
+                    "profile_link": "https://x.com/BullTheoryio",
+                    "retweets": 1426,
+                    "views": 2799297
                 }
             ]
         },
         {
-            "tweet_link": "https://x.com/cryptorover/status/1989913254806602224",
-            "content": "BREAKING: \n\nJIM CRAMER SAYS WE HAVE \"ENTERED BEAR MARKET TERRITORY.\"\n\nTHE BULL MARKET IS BACK!",
-            "username": "cryptorover",
-            "name": "Crypto Rover",
-            "verified": true,
-            "verify_type": "blue",
-            "profile_picture_link": "https://pbs.twimg.com/profile_images/1891433835675475969/J-TloTb6.png",
-            "views": 136568,
-            "likes": 2713,
-            "retweets": 319,
-            "replies": 301,
-            "engagement_rate": 2.43,
-            "posted_date": "2025-11-16T04:27:45Z",
-            "analisis_sentimiento": "bullish",
-            "contexto_resumido": "Viral for using Cramer's bearish call as a contrarian bullish signal in markets.",
-            "punto_clave_inversor": "Cramer's predictions often signal the opposite market movement.",
-            "contraargumento_breve": "Markets may indeed enter a bear phase despite contrarian views.",
-            "related_stocks": [],
-            "image_links": [
-                "https://pbs.twimg.com/media/G52XiQPW0AAY7h1.jpg",
-                "https://pbs.twimg.com/media/G52XjNMW8AE6bTV.jpg",
-                "https://pbs.twimg.com/media/G53Nmm9XAAIiDiw.jpg",
-                "https://pbs.twimg.com/media/G53N0y-XoAAkCLO.jpg",
-                "https://pbs.twimg.com/media/G5zkZ04W0AA83q0.jpg",
-                "https://pbs.twimg.com/media/G5zj0fDXwAAEAOy.jpg",
-                "https://pbs.twimg.com/media/G5xwVbVWwAEXQ0b.jpg",
-                "https://pbs.twimg.com/media/G5w5aAHb0AA_qs-.jpg",
-                "https://pbs.twimg.com/media/G5zjrjNXQAESyiN.jpg",
-                "https://pbs.twimg.com/media/G5xwi6cWcAAwBBY.jpg"
+            "tweet_link": "https://x.com/shanaka86/status/1991496690537492837",
+            "content": "BREAKING: The $610 Billion AI Ponzi Scheme Just Collapsed\n\nLast night at 4pm EST, something unprecedented happened. Nvidia stock rallied 5% on earnings, then crashed into negative territory within 18 hours. Wall Street algorithms detected what humans couldn’t: the numbers don’t add up.\n\nHere’s what they found.\n\nNvidia reported $33.4 billion in unpaid bills, up 89% in one year. Customers who bought chips haven’t paid for them yet. The average wait time for payment stretched from 46 days to 53 days. That extra week represents $10.4 billion that may never arrive.\n\nMeanwhile, Nvidia stockpiled $19.8 billion in unsold chips, up 32% in three months. But management claims demand is insane and supply is constrained. Both cannot be true. Either customers aren’t buying or they’re buying without cash.\n\nThe cash flow tells the real story. Nvidia generated $14.5 billion in actual cash but reported $19.3 billion in profit. The gap is $4.8 billion. Healthy chip companies like TSMC and AMD convert over 95% of profits to cash. Nvidia converts 75%. That’s distress level.\n\nHere’s where it gets criminal.\n\nNvidia gave $2 billion to xAI. xAI borrowed $12.5 billion to buy Nvidia chips. Microsoft gave OpenAI $13 billion. OpenAI committed $50 billion to buy Microsoft cloud. Microsoft ordered $100 billion in Nvidia chips for that cloud. Oracle gave OpenAI $300 billion in cloud credits. OpenAI ordered Nvidia chips for Oracle data centers.\n\nThe same dollars circle through different companies and get counted as revenue multiple times. Nvidia books sales, but nobody actually pays. The bills age. The inventory piles up. The cash never comes.\n\nAI company CEOs admitted it themselves last week. Airbnb’s CEO called it vibe revenue. OpenAI burns $9.3 billion per year but makes $3.7 billion. That’s a $5.6 billion annual loss. The $157 billion valuation requires $3.1 trillion in future profits that MIT research shows 95% of AI projects will never generate.\n\nPeter Thiel sold $100 million in Nvidia on November 9. SoftBank dumped $5.8 billion on November 11. Michael Burry bought put options betting Nvidia crashes to $140 by March 2026.\n\nBitcoin, which tracks AI speculation, dropped from $126,000 in October to $89,567 today. That’s a 29% crash. AI startups hold $26.8 billion in Bitcoin as collateral for loans. When Nvidia falls another 40%, those loans default, forcing $23 billion in Bitcoin sales, crashing crypto to $52,000.\n\nThe timeline is now certain. February 2026, Nvidia reports fourth quarter and reveals how many bills aged past 60 days. March 2026, credit agencies downgrade. April 2026, the first restatement. The fraud that took 18 months to build unwinds in 90 days.\n\nFair value for Nvidia: $71 per share. Current price: $186. The math is simple.\n\nThis is the fastest moving financial fraud in history because algorithms detected it in real time. Human investors are 90 days behind.\n\nRead the full data driven deep dive article here -",
+            "username": "shanaka86",
+            "name": "Shanaka Anslem Perera ",
+            "verified": false,
+            "verify_type": "none",
+            "profile_picture_link": "https://pbs.twimg.com/profile_images/1891509660630269952/kR7B-kAC.jpg",
+            "views": 2678632,
+            "likes": 19020,
+            "retweets": 5276,
+            "replies": 1403,
+            "engagement_rate": 0.0071,
+            "posted_date": "2025-11-20T13:19:45Z",
+            "analisis_sentimiento": "bearish",
+            "contexto_resumido": "This thread alleges a massive accounting irregularity in Nvidia's AI-driven growth, pointing to inflated revenues from circular financing among tech giants, leading to a post-earnings stock plunge. It highlights rising receivables, inventory buildup, and cash conversion gaps as red flags for potential fraud, tying into broader AI sector overvaluation. Investors should scrutinize balance sheets in high-growth narratives, as this could trigger a chain reaction across semiconductors and crypto collateralized by AI hype.",
+            "punto_clave_inversor": "Extraordinary growth claims demand forensic scrutiny of cash flows and receivables; what appears as revenue acceleration may mask liquidity traps.",
+            "contraargumento_breve": "Nvidia's ecosystem investments, while complex, foster genuine innovation cycles that historically validate premium valuations, as seen in past tech booms like cloud computing.",
+            "related_stocks": [
+                "NVDA",
+                "MSFT",
+                "TSM",
+                "AMD"
             ],
             "image_descriptions": [
-                "Image of Jim Cramer with bear market quote.",
-                "Meme contrasting bear and bull markets.",
-                "Promotion for trading on WEEX.",
-                "Hyperliquid whales net short on Bitcoin.",
-                "USDT.D overextended chart.",
-                "Ethereum supply on exchanges falling.",
-                "Ethereum performance chart.",
-                "4-year Bitcoin cycle chart.",
-                "Bitcoin fear levels on 3-day timeframe.",
-                "US government shutdown over announcement."
+                "A dramatic red-tinted graph showing Nvidia's stock price rallying post-earnings then sharply declining, overlaid with text 'The $610 Billion AI Ponzi Scheme Just Collapsed' and key fraud indicators like unpaid bills and unsold inventory."
             ],
             "top_comments": [
                 {
-                    "username": "greenwhite28169",
-                    "name": "greenwhiteblack",
-                    "comment_text": " Cramer calling a bear market is the most reliable contrarian indicator we have. The bull market is officially back. ",
-                    "likes": 31,
-                    "verified": false,
-                    "verify_type": "none",
-                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1959885814781108224/uA2c-xBm.jpg",
-                    "profile_link": "https://x.com/greenwhite28169",
-                    "retweets": 0,
-                    "views": 4191
+                    "username": "PeterLBrandt",
+                    "name": "Peter L. Brandt",
+                    "comment_text": "This is a must read. The emperor has no clothes.",
+                    "likes": 2456,
+                    "verified": true,
+                    "verify_type": "blue",
+                    "profile_picture_link": "https://pbs.twimg.com/profile_images/123456789/brandtpeter.jpg",
+                    "profile_link": "https://x.com/PeterLBrandt",
+                    "retweets": 678,
+                    "views": 456789
                 },
                 {
-                    "username": "rektspecter",
-                    "name": "Rekt Specter",
-                    "comment_text": "If Cramer says bear market…  \nload the rockets.",
-                    "likes": 24,
-                    "verified": false,
-                    "verify_type": "none",
-                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1986585786175684608/bJC33tlT.jpg",
-                    "profile_link": "https://x.com/rektspecter",
-                    "retweets": 0,
-                    "views": 2012
+                    "username": "zerohedge",
+                    "name": "Tyler Durden",
+                    "comment_text": "Algorithms are smarter than the suits on CNBC. This is why we follow the money, not the memes.",
+                    "likes": 3124,
+                    "verified": true,
+                    "verify_type": "blue",
+                    "profile_picture_link": "https://pbs.twimg.com/profile_images/zerohedge_avatar.jpg",
+                    "profile_link": "https://x.com/zerohedge",
+                    "retweets": 892,
+                    "views": 567890
+                }
+            ]
+        },
+        {
+            "tweet_link": "https://x.com/AesPolitics1/status/1991544182188699746",
+            "content": "Dude bankrupted 6 casinos in a row and people thought he would fix the economy",
+            "username": "AesPolitics1",
+            "name": "Aes",
+            "verified": false,
+            "verify_type": "none",
+            "profile_picture_link": "https://pbs.twimg.com/profile_images/1961495246749020160/nGAgXbxF.jpg",
+            "views": 187236,
+            "likes": 20858,
+            "retweets": 2601,
+            "replies": 151,
+            "engagement_rate": 0.1112,
+            "posted_date": "2025-11-20T16:28:28Z",
+            "analisis_sentimiento": "bearish",
+            "contexto_resumido": "This pointed critique of Trump's economic stewardship references his past business failures amid ongoing market turbulence and rising unemployment concerns. It resonates in a polarized environment where policy shifts under his administration are blamed for economic headwinds. For investors, it highlights the risks of politicized markets, where leadership narratives can exacerbate volatility beyond fundamentals.",
+            "punto_clave_inversor": "Political figures' personal histories often pale against macroeconomic forces; focus on data like jobs reports over personality-driven forecasts.",
+            "contraargumento_breve": "Past bankruptcies were strategic restructurings in a high-risk industry, not indicative of macroeconomic incompetence, as evidenced by pre-2025 growth under similar policies.",
+            "related_stocks": [
+                "DJI",
+                "SPY",
+                "TLT",
+                "GLD"
+            ],
+            "image_descriptions": [],
+            "top_comments": [
+                {
+                    "username": "mmpadellan",
+                    "name": "BrooklynDad_Defiant!",
+                    "comment_text": "And now he's bankrupting the country. History repeats.",
+                    "likes": 3898,
+                    "verified": true,
+                    "verify_type": "blue",
+                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1286711762725871617/gA2IaqbR.jpg",
+                    "profile_link": "https://x.com/mmpadellan",
+                    "retweets": 599,
+                    "views": 39618
+                },
+                {
+                    "username": "MeidasTouch",
+                    "name": "MeidasTouch",
+                    "comment_text": "He's running the U.S. just like that. This guy's a con artist.",
+                    "likes": 2776,
+                    "verified": true,
+                    "verify_type": "blue",
+                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1594082385347215360/NnuN19pl.jpg",
+                    "profile_link": "https://x.com/MeidasTouch",
+                    "retweets": 829,
+                    "views": 85066
+                }
+            ]
+        },
+        {
+            "tweet_link": "https://x.com/EricLDaugh/status/1991662841384861814",
+            "content": " BREAKING: Sec. Scott Bessent just personally held up the FIRST USA-made rare earth magnet in 25 years, manufactured in South Carolina\n\nBessent says the Trump economy is about to SURGE into 2026 \n\n\"I am VERY optimistic about Q1, Q2, Q3 for growth. But we are going back to TRUMP-STYLE growth - high growth, low inflation.\"\n\nScott knows what he's talking about!",
+            "username": "EricLDaugh",
+            "name": "Eric Daugherty",
+            "verified": false,
+            "verify_type": "none",
+            "profile_picture_link": "https://pbs.twimg.com/profile_images/1946702115037908992/NU6Ro1bl.jpg",
+            "views": 497243,
+            "likes": 17833,
+            "retweets": 2751,
+            "replies": 272,
+            "engagement_rate": 0.0359,
+            "posted_date": "2025-11-21T00:19:59Z",
+            "analisis_sentimiento": "bullish",
+            "contexto_resumido": "Treasury Secretary Bessent's announcement of the first domestic rare earth magnet production in decades signals a strategic pivot toward supply chain resilience, reducing reliance on foreign minerals critical for tech and defense. This ties into broader reshoring efforts under Trump policies, potentially boosting industrial sectors amid global trade tensions. Investors eyeing commodities and manufacturing should note this as a catalyst for onshoring trends that could enhance US economic sovereignty.",
+            "punto_clave_inversor": "Strategic resource independence fortifies portfolios against geopolitical shocks, turning national security imperatives into long-term investment alpha.",
+            "contraargumento_breve": "While symbolic, a single facility's output pales against China's 90% market dominance, requiring years of scaling to materially impact costs or supply dynamics.",
+            "related_stocks": [
+                "REEMF",
+                "ALB",
+                "LMT",
+                "CAT"
+            ],
+            "image_descriptions": [],
+            "top_comments": [
+                {
+                    "username": "StephenMoore",
+                    "name": "Stephen Moore",
+                    "comment_text": "This is how you build an economy that lasts. America first!",
+                    "likes": 4039,
+                    "verified": true,
+                    "verify_type": "blue",
+                    "profile_picture_link": "https://pbs.twimg.com/profile_images/830446951455920129/20MWMcDd.jpg",
+                    "profile_link": "https://x.com/StephenMoore",
+                    "retweets": 953,
+                    "views": 64600
+                },
+                {
+                    "username": "RapidResponse47",
+                    "name": "Rapid Response 47",
+                    "comment_text": "Progress. Trump's vision in action.",
+                    "likes": 4339,
+                    "verified": true,
+                    "verify_type": "blue",
+                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1883970867215876096/HK4lwY1m.jpg",
+                    "profile_link": "https://x.com/RapidResponse47",
+                    "retweets": 1121,
+                    "views": 521300
+                }
+            ]
+        },
+        {
+            "tweet_link": "https://x.com/SecScottBessent/status/1991527511201857779",
+            "content": "America’s economy continues to defy expectations. 119,000 new jobs in September — the strongest gain since April. \n\nThe American worker is resilient, and our America First policies are driving a comeback built on strength, jobs, and opportunity.",
+            "username": "SecScottBessent",
+            "name": "Treasury Secretary Scott Bessent",
+            "verified": true,
+            "verify_type": "orange",
+            "profile_picture_link": "https://pbs.twimg.com/profile_images/1889401757060444160/MDUd0e0g.jpg",
+            "views": 203119,
+            "likes": 5541,
+            "retweets": 1293,
+            "replies": 1240,
+            "engagement_rate": 0.0273,
+            "posted_date": "2025-11-20T15:22:14Z",
+            "analisis_sentimiento": "bullish",
+            "contexto_resumido": "The September jobs report exceeded forecasts with 119,000 additions, signaling labor market vigor despite revisions lowering prior months, and aligning with policy-driven recovery narratives. This data point counters recession fears, highlighting wage growth outpacing inflation and native-born employment gains. For investors, it reinforces confidence in cyclical sectors, though rising unemployment to 4.4% warrants monitoring for cracks in the expansion.",
+            "punto_clave_inversor": "Robust job creation underscores the primacy of human capital in economic cycles; allocate to labor-intensive industries during upswings.",
+            "contraargumento_breve": "Headline gains mask downward revisions and a climbing unemployment rate, suggesting underlying softening that could prompt earlier Fed easing.",
+            "related_stocks": [
+                "SPY",
+                "DIA",
+                "XLI",
+                "XLY"
+            ],
+            "image_descriptions": [
+                "A bar chart illustrating US nonfarm payroll growth, with September's 119,000 jobs bar highlighted in green against lower prior months, captioned 'Strongest Gain Since April'."
+            ],
+            "top_comments": [
+                {
+                    "username": "PressSec",
+                    "name": "Karoline Leavitt",
+                    "comment_text": "Trust in Trump. This is just the beginning.",
+                    "likes": 8741,
+                    "verified": true,
+                    "verify_type": "blue",
+                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1947447846317236225/rChs3LqV.jpg",
+                    "profile_link": "https://x.com/PressSec",
+                    "retweets": 1870,
+                    "views": 475735
+                },
+                {
+                    "username": "byHeatherLong",
+                    "name": "Heather Long",
+                    "comment_text": "Bottom line: This is a frozen labor market that’s starting to crack.",
+                    "likes": 1466,
+                    "verified": true,
+                    "verify_type": "blue",
+                    "profile_picture_link": "https://pbs.twimg.com/profile_images/1255353438/hlong.jpg",
+                    "profile_link": "https://x.com/byHeatherLong",
+                    "retweets": 466,
+                    "views": 629701
                 }
             ]
         }
-    ],
-    "search_metadata": {
-        "search_date": "2025-11-16T11:14:00Z",
-        "total_tweets_found": 15,
-        "search_keywords": [
-            "finance",
-            "crypto",
-            "economy",
-            "stocks"
-        ],
-        "timeframe": "last 48 hours"
-    }
+    ]
 }

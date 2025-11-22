@@ -30,8 +30,10 @@ def generate_audio_from_script(script_text: str, output_file: str, voice_id_narr
             text=script_text,
             voice_id=voice_id_narrator,
             model_id="eleven_multilingual_v2",
+            output_format="mp3_44100_128",
             voice_settings=VoiceSettings(
-                stability=0.7,  # 70% de estabilidad
+                speed=1.10,  # Velocidad normal
+                stability=0.5,  # 50% de estabilidad
                 similarity_boost=0.75,  # 75% de similitud
                 style=0.0,  # 0% de estilo exagerado
                 use_speaker_boost=True,

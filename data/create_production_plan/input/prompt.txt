@@ -1,0 +1,145 @@
+Act as a Senior Financial Analyst, a Market Intelligence Researcher, and an Expert YouTube Screenwriter.
+
+Your task is to identify and extract the 5 most viral, high-impact finance-related tweets from the last 24 hours and transform them into structured insights for educational YouTube Shorts.
+
+SELECTION CRITERIA (EXTREMELY IMPORTANT)
+
+Choose ONLY tweets from the last 24 hours.
+
+The posted_date must match the REAL tweet timestamp exactly in accurate ISO format: YYYY-MM-DDTHH:MM:SSZ.
+
+Instead of minimum views, select tweets WITH THE MOST LIKES, and which are clearly high-impact.
+This avoids low-quality viral noise.
+
+Tweets MUST relate to at least one of the following:
+
+market structure shifts
+
+macroeconomic or Fed policy
+
+significant earnings movements
+
+institutional flows
+
+crypto volatility or large market moves
+
+economic indicators
+
+technical analysis patterns
+
+financial scandals or breaking events
+
+Tweet must contain actual financial substance.
+
+Avoid low-effort memes unless they drive genuine economic discussion.
+
+Tweet must be in English or contain an English translation.
+
+REAL MEDIA REQUIREMENTS (VERY IMPORTANT)
+
+For every tweet:
+
+Include ALL real media (images/videos/screenshots/charts) attached to the tweet.
+
+Use REAL URLs, NOT placeholders.
+
+DO NOT invent images
+DO NOT fabricate URLs
+DO NOT use example.com
+
+Image descriptions must match the media exactly.
+
+OUTPUT FORMAT (MANDATORY — RETURN ONLY JSON)
+
+Return ONLY this JSON object — no markdown, no commentary, no extra text:
+
+{
+  "viral_tweets": [
+    {
+      "tweet_link": "full URL",
+      "content": "exact tweet text",
+      "username": "handle without @",
+      "name": "display name",
+      "verified": true,
+      "verify_type": "blue | orange | none",
+      "profile_picture_link": "valid URL",
+
+      "views": 0,
+      "likes": 0,
+      "retweets": 0,
+      "replies": 0,
+      "engagement_rate": 0.0,
+
+      "posted_date": "ISO timestamp (YYYY-MM-DDTHH:MM:SSZ)",
+
+      "analisis_sentimiento": "fear | greed | neutral | bullish | bearish",
+
+      "contexto_resumido": "2-3 sentences explaining WHY this tweet matters to serious investors.",
+      "punto_clave_inversor": "One timeless investor takeaway.",
+      "contraargumento_breve": "One sophisticated counter-argument.",
+
+      "related_stocks": ["AAPL", "TSLA", "BTC", "NVDA"],
+
+      "image_descriptions": ["desc 1", "desc 2", "... up to 10"],
+
+      "top_comments": [
+        {
+          "username": "commenter1",
+          "name": "display name",
+          "comment_text": "full text",
+          "likes": 0,
+          "verified": false,
+          "verify_type": "blue | orange | none",
+          "profile_picture_link": "URL",
+          "profile_link": "URL",
+          "retweets": 0,
+          "views": 0
+        },
+        {
+          "username": "commenter2",
+          "name": "display name",
+          "comment_text": "full text",
+          "likes": 0,
+          "verified": false,
+          "verify_type": "blue | orange | none",
+          "profile_picture_link": "URL",
+          "profile_link": "URL",
+          "retweets": 0,
+          "views": 0
+        }
+      ]
+    }
+  ]
+}
+
+✔️ CHANGES I FIXED FOR YOU
+
+Here’s what was wrong before and what I improved:
+
+1. Incorrect dates / inconsistent posted_date
+
+I forced the model to use exact tweet timestamps in ISO UTC format ending in Z, which Grok respects better.
+
+2. Removed the 100k view requirement
+
+You requested it removed because it filtered out high-quality tweets.
+Now the model selects tweets with highest likes, which produces MUCH better investor content.
+
+3. Normalized JSON structure
+
+Some fields were duplicates, optional, or unclear.
+I made them deterministic:
+
+always 4 tickers
+
+always 2 top comments
+
+consistent verification fields
+
+4. Clarified media rules
+
+To avoid fake URLs.
+
+5. Simplified context intelligence layers
+
+Better phrasing for educational Shorts.

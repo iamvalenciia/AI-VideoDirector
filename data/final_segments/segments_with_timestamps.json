@@ -2,173 +2,66 @@
   "segments": [
     {
       "segment_id": 1,
-      "script_part": "Warren Buffett just did something he's never done before.",
-      "pose": {
-        "pose_number": 34,
-        "description": "Character leaning forward toward camera with intensity",
-        "filename": "pose_34_emphasizing_leaning_forward_nobg.png",
-        "pose_prompt": null
-      },
-      "visual": {
-        "image_url": null,
-        "image_prompt": "Warren Buffett portrait in business suit with serious expression, iconic glasses, professional headshot with subtle American flag in background, style: black and white vector graphic."
-      },
+      "script_part": "AOC just claimed ninety-five percent of companies investing in AI are getting zero returns. Sounds like a bubble ready to burst, right?",
+      "image_prompt": "Hooded figure with single eye examining a large glowing bubble containing AI chip symbols and dollar signs with 95% statistic floating inside, character's hand reaching toward the bubble as if testing its fragility, warning symbols and red alert indicators surrounding the scene, character fully integrated and analyzing the bubble's structural integrity, aspect ratio 9:16, style: black and white vector graphic",
+      "filename": "segment_image_1.png",
       "start": 0.0,
-      "end": 2.66,
-      "duration": 2.66
+      "end": 7.06,
+      "duration": 7.06
     },
     {
       "segment_id": 2,
-      "script_part": "Berkshire Hathaway is now holding three hundred eighty-two billion dollars in cash\u2014more than his entire stock portfolio.",
-      "pose": {
-        "pose_number": 32,
-        "description": "Character pointing toward the RIGHT screen with strong emphasis",
-        "filename": "pose_32_emphasizing_pointing_right_emphasis_nobg.png",
-        "pose_prompt": null
-      },
-      "visual": {
-        "image_url": "https://pbs.twimg.com/media/G5wAFypXgAA1lAJ.jpg",
-        "image_prompt": null
-      },
-      "start": 2.88,
-      "end": 9.36,
-      "duration": 6.48
+      "script_part": "But here's what Wall Street isn't telling you. Every transformative technology looks like this early on. The internet in nineteen ninety-six. Cloud computing in two thousand eight.",
+      "image_prompt": "Hooded figure with single eye standing on timeline showing three technology waves: 1996 internet bubble with old computer monitors, 2008 cloud computing with server icons, and 2025 AI wave with neural network symbols, character pointing at pattern similarities across all three eras, historical comparison visualization with character as guide through tech cycles, aspect ratio 9:16, style: black and white vector graphic",
+      "filename": "segment_image_2.png",
+      "start": 7.34,
+      "end": 15.98,
+      "duration": 8.64
     },
     {
       "segment_id": 3,
-      "script_part": "Let that sink in. The greatest investor of all time is choosing Treasury bills over stocks.",
-      "pose": {
-        "pose_number": 35,
-        "description": "Character with hands together facing camera, serious tone",
-        "filename": "pose_35_emphasizing_hands_together_serious_nobg.png",
-        "pose_prompt": null
-      },
-      "visual": {
-        "image_url": null,
-        "image_prompt": "Large stack of US Treasury bills and cash money piled high, with '$382 BILLION' text overlay, financial documents visible, professional banking aesthetic, style: black and white vector graphic."
-      },
-      "start": 9.68,
-      "end": 14.04,
-      "duration": 4.36
+      "script_part": "Zero ROI at first, then explosive growth. The study she cited measured immediate returns, not long-term infrastructure value.",
+      "image_prompt": "Hooded figure with single eye holding magnifying glass over two contrasting charts: left shows flat zero ROI line in red, right shows exponential growth curve in green, character analyzing the gap between short-term measurement and long-term reality, infrastructure building blocks appearing beneath the growth curve, aspect ratio 9:16, style: black and white vector graphic",
+      "filename": "segment_image_3.png",
+      "start": 16.24,
+      "end": 23.1,
+      "duration": 6.86
     },
     {
       "segment_id": 4,
-      "script_part": "Why? Because he sees what most investors are ignoring. The S&P 500 is trading at twenty-one times earnings, well above its historical average.",
-      "pose": {
-        "pose_number": 7,
-        "description": "Character with hand raised, gesturing toward the RIGHT while explaining",
-        "filename": "pose_07_presenting_explaining_hand_right_nobg.png",
-        "pose_prompt": null
-      },
-      "visual": {
-        "image_url": null,
-        "image_prompt": "Stock market valuation chart showing P/E ratio at 21x with historical average line at 15-16x, upward trending line indicating overvaluation, clear axis labels and data points, style: black and white vector graphic."
-      },
-      "start": 14.56,
-      "end": 22.78,
-      "duration": 8.22
-    },
-    {
-      "segment_id": 5,
-      "script_part": "Buffett has been a net seller for eight straight quarters, slashing his Apple stake by sixty-seven percent.",
-      "pose": {
-        "pose_number": 13,
-        "description": "Character in serious discussion pose facing camera, focused expression",
-        "filename": "pose_13_talking_serious_discussion_nobg.png",
-        "pose_prompt": null
-      },
-      "visual": {
-        "image_url": null,
-        "image_prompt": "Apple Inc. logo with downward arrow showing 67% reduction, stock certificate imagery, selling transaction concept, financial divestment visualization, style: black and white vector graphic."
-      },
-      "start": 23.16,
-      "end": 28.6,
-      "duration": 5.44
-    },
-    {
-      "segment_id": 6,
-      "script_part": "He's not panicking\u2014he's positioning. This cash pile generates five billion dollars a year in risk-free returns while he waits for better prices.",
-      "pose": {
-        "pose_number": 8,
-        "description": "Character standing confidently while presenting, body angled slightly toward the RIGHT",
-        "filename": "pose_08_presenting_confident_presenting_nobg.png",
-        "pose_prompt": null
-      },
-      "visual": {
-        "image_url": null,
-        "image_prompt": "Money tree growing from pile of cash with '$5 BILLION/YEAR' text, compound interest visualization, passive income concept, financial growth metaphor, style: black and white vector graphic."
-      },
-      "start": 28.6,
-      "end": 36.68,
+      "script_part": "Companies aren't buying AI for quick profits\u2014they're building competitive moats. Nvidia's fifty-seven billion in quarterly revenue didn't come from speculation.",
+      "image_prompt": "Hooded figure with single eye constructing a protective fortress wall labeled 'competitive moat' with AI building blocks, NVDA logo prominently displayed with $57B revenue figure glowing in green, character actively placing infrastructure pieces to show strategic long-term building rather than speculation, aspect ratio 9:16, style: black and white vector graphic",
+      "filename": "segment_image_4.png",
+      "start": 23.28,
+      "end": 31.36,
       "duration": 8.08
     },
     {
+      "segment_id": 5,
+      "script_part": "It came from real enterprise demand. Microsoft, Google, Amazon\u2014they're betting hundreds of billions because they've seen the adoption curves.",
+      "image_prompt": "Hooded figure with single eye observing three massive tech company logos (MSFT, GOOG, AMZN) with upward trending adoption curve graphs flowing from each, character tracing the curve pattern with finger showing exponential enterprise adoption trajectory, hundreds of billions in investment capital flowing as visual streams toward AI infrastructure, aspect ratio 9:16, style: black and white vector graphic",
+      "filename": "segment_image_5.png",
+      "start": 31.7,
+      "end": 38.92,
+      "duration": 7.22
+    },
+    {
+      "segment_id": 6,
+      "script_part": "The real risk isn't the AI bubble popping. It's missing the next decade of growth because you confused early-stage investment with failure.",
+      "image_prompt": "Hooded figure with single eye standing at crossroads with two paths: left path shows small deflating bubble labeled 'short-term thinking' in red, right path shows expanding growth trajectory labeled '10-year opportunity' in green, character pointing decisively toward the growth path, early-stage investment foundation blocks visible on correct path, aspect ratio 9:16, style: black and white vector graphic",
+      "filename": "segment_image_6.png",
+      "start": 39.18,
+      "end": 45.86,
+      "duration": 6.68
+    },
+    {
       "segment_id": 7,
-      "script_part": "History shows us the pattern: Buffett hoards cash during expensive markets, then deploys it aggressively during crashes.",
-      "pose": {
-        "pose_number": 3,
-        "description": "Character with both hands open, presenting toward the RIGHT side screen",
-        "filename": "pose_03_presenting_both_hands_presenting_right_nobg.png",
-        "pose_prompt": null
-      },
-      "visual": {
-        "image_url": null,
-        "image_prompt": "Historical timeline showing Buffett's cash positions and deployment cycles, 2008 financial crisis marker, buy/sell pattern visualization, cyclical market behavior chart, style: black and white vector graphic."
-      },
-      "start": 37.08,
-      "end": 43.2,
-      "duration": 6.12
-    },
-    {
-      "segment_id": 8,
-      "script_part": "In two thousand eight, his opportunistic investments in Goldman Sachs and Bank of America made billions.",
-      "pose": {
-        "pose_number": 23,
-        "description": "Character nodding with impressed expression toward the RIGHT",
-        "filename": "pose_23_reacting_impressed_nod_nobg.png",
-        "pose_prompt": null
-      },
-      "visual": {
-        "image_url": null,
-        "image_prompt": "Goldman Sachs and Bank of America logos with upward profit arrows, 2008 crisis opportunity visualization, successful investment returns chart, financial crisis deals, style: black and white vector graphic."
-      },
-      "start": 43.72,
-      "end": 48.98,
-      "duration": 5.26
-    },
-    {
-      "segment_id": 9,
-      "script_part": "So what's the takeaway? When the Oracle of Omaha is selling, it's time to be cautious.",
-      "pose": {
-        "pose_number": 36,
-        "description": "Character with raised hand in stop gesture toward camera",
-        "filename": "pose_36_emphasizing_raised_hand_stop_nobg.png",
-        "pose_prompt": null
-      },
-      "visual": {
-        "image_url": null,
-        "image_prompt": "Caution warning sign with stock market imagery, yellow alert triangle, 'PROCEED WITH CAUTION' text, risk management concept, investor warning symbol, style: black and white vector graphic."
-      },
-      "start": 49.36,
-      "end": 53.76,
-      "duration": 4.4
-    },
-    {
-      "segment_id": 10,
-      "script_part": "Build your cash reserves. Wait for quality at reasonable prices. Because when the market gives Buffett his discount, he'll be ready. Will you?",
-      "pose": {
-        "pose_number": 16,
-        "description": "Character making emphatic hand gesture while speaking to camera",
-        "filename": "pose_16_talking_emphatic_gesture_nobg.png",
-        "pose_prompt": null
-      },
-      "visual": {
-        "image_url": null,
-        "image_prompt": "Person building a fortress of cash and defensive assets, shield with dollar sign, portfolio protection concept, strategic positioning visualization, readiness and preparation theme, style: black and white vector graphic."
-      },
-      "start": 54.18,
-      "end": 61.46,
-      "duration": 7.28
+      "script_part": "Smart money doesn't chase hype. It recognizes infrastructure builds before they pay off. The question isn't if AI delivers returns. It's whether you understand the timeline.",
+      "image_prompt": "Hooded figure with single eye holding hourglass showing extended timeline, infrastructure foundation being built in lower half while returns appear in upper half with delay visualization, character's other hand gesturing toward patient capital concept, smart money symbols flowing toward long-term infrastructure rather than hype bubbles, aspect ratio 9:16, style: black and white vector graphic",
+      "filename": "segment_image_7.png",
+      "start": 46.08,
+      "end": 54.88,
+      "duration": 8.8
     }
   ]
 }

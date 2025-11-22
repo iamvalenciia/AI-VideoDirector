@@ -25,13 +25,14 @@ class BaseHandler(ABC):
 
         self.commands = {
             "create-production-plan": self._create_production_plan,
-            "create-or-download-images": self._create_or_download_images,
-            "create-audio-and-timestamps": self._create_audio_and_timestamps,
             "create-tweet-image": self._create_tweet_image,
-            "create-ticker-background-image": self._create_ticket_background_image,
-            "create-ticker-image": self._create_ticker_image,
-            "create-final-video": self._create_final_video,
+            "create-audio": self._create_audio,
+            "create-timestamps": self._create_timestamps,
             "create-segments-with-timestamps": self._create_segments_with_timestamps,
+            "create-final-video": self._create_final_video,
+            "create-or-download-images": self._create_or_download_images,
+            # "create-ticker-background-image": self._create_ticket_background_image,
+            # "create-ticker-image": self._create_ticker_image,
         }
         
     def execute(self, command: Optional[str]):
@@ -53,26 +54,18 @@ class BaseHandler(ABC):
     def _create_production_plan(self):
         print("Selecting tweets...")
         viral_tweets_path = (Path(self.root_dir) / "data" / "create_production_plan" / "input" / "viral_tweets.json")
-        character_poses = (Path(self.root_dir) / "data" / "character_poses" / "character_poses.json")
 
         if not viral_tweets_path.is_file():
             print(f"[ERROR] Expected file but found nothing: {viral_tweets_path}")
-            return
-        if not character_poses.is_file():
-            print(f"[ERROR] Expected file but found nothing: {character_poses}")
             return
         
         with open(viral_tweets_path, 'r', encoding='utf-8') as f: 
             viral_tweets_data = json.load(f)
 
-        with open(character_poses, 'r', encoding='utf-8') as f:
-            character_poses_data = json.load(f)
-
         try:
             creator = ProductionPlanCreator()
             plan = creator.create_plan(
-                viral_tweets_data,
-                character_poses_data
+                viral_tweets_data, 
             )
         except Exception as e:
             print(f"[ERROR] Failed to create production plan: {e}")
@@ -149,8 +142,34 @@ class BaseHandler(ABC):
                     print(f"[ERROR] Failed generating image for segment {segment_id}: {e}")
                     print("Images created or downloaded.")
     
-    def _create_audio_and_timestamps(self):
-        print("Creating audio and timestamps...")
+    def _create_timestamps(self):
+        print("Creating timestamps...")
+
+        output_audio_path = (
+            self.base_dir / "data" / "video_audio" / "elevenlabs" / "narration.mp3"
+        )
+
+        output_timestamps_path = (
+            self.base_dir / "data" / "video_audio" / "elevenlabs" / "timestamps.json"
+        )
+
+        # ==========================
+        # 5. Generate timestamps
+        # ==========================
+        generate_timestamps_from_audio(
+            audio_file=str(output_audio_path),
+            output_file=str(output_timestamps_path)
+        )
+
+        # ==========================
+        # 6. Debug info
+        # ==========================
+        print("timestamps created.")
+
+
+    
+    def _create_audio(self):
+        print("Creating audio...")
 
         # ==========================
         # 1. Paths & Config
@@ -163,10 +182,6 @@ class BaseHandler(ABC):
 
         output_audio_path = (
             self.base_dir / "data" / "video_audio" / "elevenlabs" / "narration.mp3"
-        )
-
-        output_timestamps_path = (
-            self.base_dir / "data" / "video_audio" / "elevenlabs" / "timestamps.json"
         )
 
         # ==========================
@@ -197,19 +212,8 @@ class BaseHandler(ABC):
             voice_id_narrator
         )
 
-        # ==========================
-        # 5. Generate timestamps
-        # ==========================
-        generate_timestamps_from_audio(
-            audio_file=str(output_audio_path),
-            output_file=str(output_timestamps_path)
-        )
+        print("Audio created.", f"Output path: {output_audio_path}")
 
-        # ==========================
-        # 6. Debug info
-        # ==========================
-        print(f"Script text: {script_text}")
-        print("Audio and timestamps created.")
 
     def _create_tweet_image(self):  # SIN async
         print("Creating tweet image...")
@@ -246,43 +250,43 @@ class BaseHandler(ABC):
         
         print("Tweet image created.")
 
-    def _create_ticket_background_image(self):
-        print("Creating ticker background image...")
-        ticker_width = 930
-        ticker_height = 50
-        asyncio.run(create_ticker_background_image(ticker_width, ticker_height, str(self.base_dir / "data" / "video_ticker" / "ticker_background.png")))
-        print("Ticker background image created.")
+    # def _create_ticket_background_image(self):
+    #     print("Creating ticker background image...")
+    #     ticker_width = 930
+    #     ticker_height = 50
+    #     asyncio.run(create_ticker_background_image(ticker_width, ticker_height, str(self.base_dir / "data" / "video_ticker" / "ticker_background.png")))
+    #     print("Ticker background image created.")
 
-    def _create_ticker_image(self):
+    # def _create_ticker_image(self):
 
-        print("Creating ticker image...")
+    #     print("Creating ticker image...")
 
-        production_plan_path = (
-           self.base_dir / "data" / "create_production_plan" / "output" / "production_plan.json"
-        )
-        output_ticker_image_path = (
-            self.base_dir / "data" / "video_ticker" / "ticker.png"
-        )
+    #     production_plan_path = (
+    #        self.base_dir / "data" / "create_production_plan" / "output" / "production_plan.json"
+    #     )
+    #     output_ticker_image_path = (
+    #         self.base_dir / "data" / "video_ticker" / "ticker.png"
+    #     )
 
-        # Validar si existe el archivo JSON
+    #     # Validar si existe el archivo JSON
 
-        # Cargar JSON
-        try:
-            with open(production_plan_path, "r", encoding="utf-8") as f:
-                production_plan_data = json.load(f)
-        except Exception as e:
-            print(f"[ERROR] Failed to load JSON: {e}")
-            return
+    #     # Cargar JSON
+    #     try:
+    #         with open(production_plan_path, "r", encoding="utf-8") as f:
+    #             production_plan_data = json.load(f)
+    #     except Exception as e:
+    #         print(f"[ERROR] Failed to load JSON: {e}")
+    #         return
         
-        stocks_data = production_plan_data.get("ticker_stocks", [])
+    #     stocks_data = production_plan_data.get("ticker_stocks", [])
 
-        asyncio.run(generate_bottom_ticker(
-            stocks=stocks_data,
-            output_path=str(output_ticker_image_path),
-            width=20000,
-            height=80
-        ))
-        print("Ticker image created.")
+    #     asyncio.run(generate_bottom_ticker(
+    #         stocks=stocks_data,
+    #         output_path=str(output_ticker_image_path),
+    #         width=20000,
+    #         height=80
+    #     ))
+    #     print("Ticker image created.")
 
     def _create_segments_with_timestamps(self):
         # Aquí reconstruyo los datos que me diste en el prompt para probar que funciona
@@ -319,61 +323,10 @@ class BaseHandler(ABC):
         """Create the final assembled video"""
         print("Creating final video...")
 
-        font_path = str(
-            self.base_dir / "data" / "fonts" / "Montserrat-Bold.ttf"
-        )
-        
         # =============================
         # 1. Configure Video Settings
         # =============================
         config = VideoConfig()
-        
-        # Customize settings (EDITABLE)
-        # Video dimensions
-        config.video_width = 1920
-        config.video_height = 1080
-        config.fps = 30
-        
-        # Background color (RGB)
-        config.background_color = (255, 255, 255)  # White
-        
-        # Character pose position (left side)
-        config.character_x = 600        # X position (center of square)
-        config.character_y = 300       # Y position (center of square) (de abajo arriba)
-        config.character_width = 700    # Width of character
-        config.character_height = 700   # Height of character
-
-        # We put the tweet lower (Y=750) so the character's head shows above it.
-        config.tweet_width = 800   # Width of the tweet image
-        config.tweet_x = 500      # Centered horizontally with character
-        config.tweet_y = 650       # Lower down vertically (+numer = close to the bottom)
-        
-        # Generated/Downloaded image position (right side)
-        config.image_x = 1300          # X position (center of square)
-        config.image_y = 400           # Y position (center of square)
-        config.image_width = 700       # Width of image
-        config.image_height = 700      # Height of image
-        
-        # Caption configuration
-        config.caption_font = "Montserrat"      # Font name
-        config.caption_fontsize = 80            # Font size
-        config.caption_color = (95, 235, 69)   # Caption text color
-        config.caption_bg_color = (0, 0, 0)  # Background (RGBA)
-        config.caption_y = 750                  # Y position (below images)
-        config.caption_x = 1100                  # Empieza a 400px del borde izquierdo
-        config.caption_max_width = 1600         # Max width for text wrap
-        config.caption_stroke_color = "white"   # Outline color
-        config.caption_stroke_width = 5         # Outline thickness
-        
-        # Ticker configuration
-        config.ticker_height = 80               # Height of ticker bar
-        config.ticker_y = 1020                  # Y position (near bottom)
-        config.ticker_speed = 100               # Speed in pixels/second (EDITABLE)
-        config.ticker_fade_start_percent = 20   # Fade starts at 20% from left (EDITABLE)
-        
-        # Transition effects
-        config.image_fade_duration = 0.3        # Fade in/out duration
-        config.pose_fade_duration = 0.3         # Fade in/out duration
         
         # =============================
         # 2. Define File Paths
@@ -404,7 +357,7 @@ class BaseHandler(ABC):
         
         # Optional background music
         background_music_path = str(
-            self.base_dir / "data" / "video_audio" / "music" /"division_music.mp3"
+            self.base_dir / "data" / "video_audio" / "music" /"division_music_extend_v2.mp3"
         )
         
         # Ticker images
@@ -419,11 +372,6 @@ class BaseHandler(ABC):
         # Tweet image (optional)
         tweet_image_path = str(
             self.base_dir / "data" / "tweet_image" / "tweet_image.png"
-        )
-        
-        # Character poses directory
-        character_poses_dir = str(
-            self.base_dir / "data" / "character_poses" / "nobg"
         )
         
         # Video images directory
@@ -455,10 +403,6 @@ class BaseHandler(ABC):
                 print(f"[ERROR] Required file not found: {file_path}")
                 return
         
-        if not Path(character_poses_dir).exists():
-            print(f"[ERROR] Character poses directory not found: {character_poses_dir}")
-            return
-        
         if not Path(video_images_dir).exists():
             print(f"[ERROR] Video images directory not found: {video_images_dir}")
             return
@@ -476,7 +420,6 @@ class BaseHandler(ABC):
                 background_music_path=background_music_path,
                 ticker_image_path=ticker_image_path,
                 ticker_background_path=ticker_background_path,
-                character_poses_dir=character_poses_dir,
                 video_images_dir=video_images_dir,
                 output_path=output_path,
                 config=config

@@ -25,46 +25,58 @@ class VideoConfig:
     """Configuration class for video assembly parameters"""
     
     def __init__(self):
+
+        # X (horizontal):
+        # Menor valor ← → Mayor valor
+        # IZQUIERDA       DERECHA
+
+        # Y (vertical):
+        # Menor valor ↑ ↓ Mayor valor
+        # ARRIBA        ABAJO
+
         # Video dimensions
-        self.video_width = 1920
-        self.video_height = 1080
+        self.video_width = 2560
+        self.video_height = 1440
         self.fps = 30
         
         # Background
         self.background_color = (255, 255, 255)
-        
-        # Character pose position (Layer 1)
-        self.character_x = 1000
-        self.character_y = 400
-        self.character_width = 700
-        self.character_height = 700
-        
-        # Generated/Downloaded image position (right side)
-        self.image_x = 1300
-        self.image_y = 400
-        self.image_width = 700
-        self.image_height = 700
 
         # --- TWEET IMAGE CONFIGURATION (Layer 2 - Foreground) ---
-        self.tweet_width = 800   
-        self.tweet_x = 1000      
-        self.tweet_y = 750       
+        self.tweet_width = 968     # 30% del ancho
+        self.tweet_x = 700         # Centro del 30% izquierdo
+        self.tweet_y = 720         # Puedes dejarlo o cambiarlo 
+        self.tweet_padding = 100    # Padding entre tweet y bordes   
+
+        # Generated/Downloaded image position (right side)
+        self.image_width = 1024    # 70% del ancho
+        self.image_x = 1800        # Centro del 70% derecho
+        self.image_y = 620         # Puedes dejarlo o cambiarlo
+        self.image_padding = 100    # Padding entre imagen y bordes
         
         # Captions configuration
-        self.caption_font = "Montserrat"
-        self.caption_font_path = Path("data/fonts/Montserrat-BoldItalic.ttf")
-        self.caption_fontsize = 48
-        self.caption_color = "white"
+        self.caption_font = "Montserrat ExtraBold"
+        self.caption_font_path = Path("data/fonts/Montserrat-ExtraBold.ttf")
+        self.caption_fontsize = 80
+        self.caption_color = "black"
         self.caption_bg_color = None 
-        self.caption_y = 720
-        self.caption_x = 100
+        self.caption_x = 1100
+        self.caption_y = 1150
         self.caption_max_width = 1600
-        self.caption_stroke_color = "black"
-        self.caption_stroke_width = 4 
+        self.caption_stroke_color = "#5eea45"
+        self.caption_stroke_width = 5 
+
+        # Caption box configuration
+        self.caption_box_enabled = True           # Activar el cuadrado de fondo
+        self.caption_box_color = "#5eea45"        # Color verde del cuadrado
+        self.caption_box_padding_x = 20           # Padding horizontal (izq/der)
+        self.caption_box_padding_y = 15           # Padding vertical (arriba/abajo)
+        self.caption_box_opacity = 255            # Opacidad del fondo (0-255, 255=sólido)
+        self.caption_box_border_radius = 10       # Radio de esquinas redondeadas (opcional)
         
         # --- PROFESSIONAL TICKER CONFIGURATION ---
-        self.ticker_height = 60
-        self.ticker_y = 1020
+        self.ticker_height = 140
+        self.ticker_y = 1300
         self.ticker_speed = 150
         self.ticker_bg_color = (0, 0, 0) 
         
@@ -78,17 +90,22 @@ class VideoConfig:
         self.ticker_fade_start_percent = 0 
         
         # Ticker Styling
-        self.ticker_font_path = Path("data/fonts/Montserrat-Bold.ttf")
-        self.ticker_font_size = 32
-        self.ticker_text_font = "Montserrat"
+        self.ticker_font_path = Path("data/fonts/Montserrat-ExtraBold.ttf")
+        self.ticker_font_size = 50
+        self.ticker_logo_font_size = 40
+        self.ticker_text_font = "Montserrat ExtraBold"
         
         # Colors
         self.ticker_color_up = "#00FF00"      
         self.ticker_color_down = "#FF3333"    
         self.ticker_color_neutral = "#FFFFFF" 
         
-        self.ticker_separator = "   |   "
+        self.ticker_separator = "  |  "
         self.ticker_item_padding = 60
+
+        # --- AUDIO CONFIGURATION ---
+        self.narration_volume = 1.1    # Volumen de la narración (0.0-2.0)
+        self.music_volume = 0.30       # Volumen de la música de fondo (0.0-1.0)
 
 
 class VideoAssembler:
@@ -105,7 +122,6 @@ class VideoAssembler:
         background_music_path: Optional[str],
         ticker_image_path: str, 
         ticker_background_path: str, 
-        character_poses_dir: str,
         video_images_dir: str,
         output_path: str,
         tweet_image_path: Optional[str] = None, 
@@ -130,11 +146,9 @@ class VideoAssembler:
         # Layer 0: Background
         background = self._create_background(video_duration)
         
-        # Layer 1: Character Segments (Behind Tweet)
         # --- UPDATED: Passing video_duration to fix gaps ---
         segments_clips = self._create_segment_clips(
             synced_plan,
-            character_poses_dir,
             video_images_dir,
             video_duration
         )
@@ -166,17 +180,22 @@ class VideoAssembler:
             all_clips, 
             size=(self.config.video_width, self.config.video_height)
         )
+
+        # Add audio with volume control
+        # Ajustar volumen de la narración
+        narration_audio_adjusted = narration_audio.with_volume_scaled(self.config.narration_volume)
         
         # Add audio
         if background_music_path and Path(background_music_path).exists():
-            music = AudioFileClip(background_music_path).with_volume_scaled(0.15)
+            # Ajustar volumen de la música
+            music = AudioFileClip(background_music_path).with_volume_scaled(self.config.music_volume)
             if music.duration < video_duration:
                 music = music.with_effects([AudioLoop(duration=video_duration)])
             else:
                 music = music.with_duration(video_duration)
-            final_audio = CompositeAudioClip([narration_audio, music])
+            final_audio = CompositeAudioClip([narration_audio_adjusted, music])
         else:
-            final_audio = narration_audio
+            final_audio = narration_audio_adjusted
         
         final_video = final_video.with_audio(final_audio)
         
@@ -231,11 +250,11 @@ class VideoAssembler:
             return None
 
     # --- GAP FIX IMPLEMENTED HERE ---
-    def _create_segment_clips(self, synced_plan: Dict, character_poses_dir: str, video_images_dir: str, total_video_duration: float) -> List[VideoClip]:
+    def _create_segment_clips(self, synced_plan: Dict, video_images_dir: str, total_video_duration: float) -> List[VideoClip]:
         """
-        Creates character and visual segment clips.
-        GAP FIX: Calculates duration based on the START of the NEXT segment
-        to ensure no empty frames between images.
+        Creates visual segment clips.
+        UPDATED LOGIC: Splits each segment into 3 progressive frames (Frame 1, 2, 3).
+        Each frame gets 1/3 of the segment's total duration.
         """
         clips = []
         segments = synced_plan.get("segments", [])
@@ -245,56 +264,61 @@ class VideoAssembler:
             segment_id = segment.get("segment_id")
             start_time = segment.get("start", 0)
             
-            # --- LOGIC TO FILL GAPS ---
-            # If there is a next segment, this one lasts until the next one starts.
+            # 1. Calculate the TOTAL duration of this segment
             if i < num_segments - 1:
                 next_start = segments[i+1].get("start", 0)
-                duration = next_start - start_time
+                segment_duration = next_start - start_time
             else:
-                # Last segment lasts until the end of the video
-                duration = total_video_duration - start_time
+                # Last segment goes until the end of the video
+                segment_duration = total_video_duration - start_time
 
-            # Fail-safe: ensure duration is at least 0.1s (avoids negative duration if sync is weird)
-            if duration <= 0: duration = 0.1
+            # Safety check
+            if segment_duration <= 0: segment_duration = 0.1
             
-            # 1. Add Character Pose
-            pose_data = segment.get("pose", {})
-            pose_filename = pose_data.get("filename")
-            if pose_filename:
-                pose_path = Path(character_poses_dir) / pose_filename
-                if pose_path.exists():
+            # 2. Calculate duration per FRAME (3 frames per segment)
+            frame_duration = segment_duration / 3.0
+            
+            # 3. Loop through the 3 frames
+            for frame_num in range(1, 4): # Iterates: 1, 2, 3
+                
+                # Construct the expected filename: segment_image_1_frame_1.png
+                image_filename = f"segment_image_{segment_id}_frame_{frame_num}.png"
+                img_path = Path(video_images_dir) / "generated_images" / image_filename
+                
+                # Calculate exact start time for THIS frame
+                # Frame 1 starts at: start_time
+                # Frame 2 starts at: start_time + frame_duration
+                # Frame 3 starts at: start_time + (frame_duration * 2)
+                current_frame_start = start_time + ((frame_num - 1) * frame_duration)
+
+                if img_path.exists():
                     clips.append(self._create_image_clip(
-                        str(pose_path), start_time, duration,
-                        self.config.character_x, self.config.character_y,
-                        self.config.character_width, self.config.character_height
+                        str(img_path), 
+                        current_frame_start, # Calculated start
+                        frame_duration,      # Calculated duration
+                        self.config.image_x, 
+                        self.config.image_y,
+                        self.config.image_width,
                     ))
-            
-            # 2. Add Visual Image
-            image_filename = f"segment_{segment_id}.png"
-            gen_path = Path(video_images_dir) / "generated_images" / image_filename
-            dl_path = Path(video_images_dir) / "download_images" / image_filename
-            
-            img_path = None
-            if gen_path.exists(): img_path = gen_path
-            elif dl_path.exists(): img_path = dl_path
-            
-            if img_path:
-                clips.append(self._create_image_clip(
-                    str(img_path), start_time, duration,
-                    self.config.image_x, self.config.image_y,
-                    self.config.image_width, self.config.image_height
-                ))
+                else:
+                    print(f"⚠️ Missing frame image: {image_filename}")
+                    # Optional: You could add logic here to reuse the previous frame if one is missing
+                    
         return clips
     
-    def _create_image_clip(self, image_path: str, start_time: float, duration: float, x: int, y: int, width: int, height: int) -> ImageClip:
+    def _create_image_clip(self, image_path: str, start_time: float, duration: float, x: int, y: int, width: int) -> ImageClip:
         img = Image.open(image_path)
+        # OPCIÓN B: Mantener proporción (como el tweet)
+        w_percent = (width / float(img.size[0]))
+        h_size = int((float(img.size[1]) * float(w_percent)))
+        
         if img.mode == 'RGBA':
-            img_resized = img.resize((width, height), Image.Resampling.LANCZOS)
+            img_resized = img.resize((width, h_size), Image.Resampling.LANCZOS)
         else:
-            img_resized = img.convert('RGB').resize((width, height), Image.Resampling.LANCZOS)
+            img_resized = img.convert('RGB').resize((width, h_size), Image.Resampling.LANCZOS)
         
         clip = ImageClip(np.array(img_resized))
-        clip = clip.with_duration(duration).with_start(start_time).with_position((x - width // 2, y - height // 2))
+        clip = clip.with_duration(duration).with_start(start_time).with_position((x - width // 2, y - h_size // 2))
         return clip
 
     # --- CAPTION GENERATOR (PIL) ---
@@ -314,8 +338,8 @@ class VideoAssembler:
         stroke_color = self.config.caption_stroke_color
         stroke_width = self.config.caption_stroke_width
         
-        pad_x = 15 
-        pad_y = 15
+        pad_x = self.config.caption_box_padding_x 
+        pad_y = self.config.caption_box_padding_y
 
         dummy_draw = ImageDraw.Draw(Image.new("RGBA", (1, 1)))
 
@@ -334,7 +358,18 @@ class VideoAssembler:
                 img_w = text_w + (pad_x * 2)
                 img_h = text_h + (pad_y * 2)
                 
-                img = Image.new("RGBA", (img_w, img_h), (0, 0, 0, 0))
+                # Calcular color del cuadrado de fondo
+                if self.config.caption_box_enabled:
+                    # Convertir color hex a RGB
+                    box_color = ImageColor.getrgb(self.config.caption_box_color)
+                    box_color_rgba = box_color + (self.config.caption_box_opacity,)
+                    
+                    # Crear imagen con fondo verde
+                    img = Image.new("RGBA", (img_w, img_h), box_color_rgba)
+                else:
+                    # Crear imagen transparente (comportamiento original)
+                    img = Image.new("RGBA", (img_w, img_h), (0, 0, 0, 0))
+
                 draw = ImageDraw.Draw(img)
                 
                 draw_x = pad_x - bbox[0]
@@ -344,9 +379,10 @@ class VideoAssembler:
                     (draw_x, draw_y), 
                     word, 
                     font=font, 
-                    fill=text_color, 
-                    stroke_fill=stroke_color, 
-                    stroke_width=stroke_width
+                    fill=text_color,
+                    # Opcional: quitar stroke si tienes fondo
+                    # stroke_fill=stroke_color, 
+                    # stroke_width=stroke_width
                 )
                 
                 txt_clip = ImageClip(np.array(img))
@@ -367,7 +403,7 @@ class VideoAssembler:
         scale = 3
         width = self.config.branding_width * scale
         height = self.config.ticker_height * scale
-        font_size = int(self.config.ticker_font_size * 1.3 * scale) 
+        font_size = int(self.config.ticker_logo_font_size * 1.3 * scale) 
         
         try:
             font = ImageFont.truetype(str(self.config.ticker_font_path), font_size)
@@ -547,7 +583,6 @@ def assemble_video(
     background_music_path: Optional[str],
     ticker_image_path: str,
     ticker_background_path: str,
-    character_poses_dir: str,
     video_images_dir: str,
     output_path: str,
     tweet_image_path: Optional[str] = None,
@@ -562,7 +597,6 @@ def assemble_video(
         background_music_path=background_music_path,
         ticker_image_path=ticker_image_path,
         ticker_background_path=ticker_background_path,
-        character_poses_dir=character_poses_dir,
         video_images_dir=video_images_dir,
         output_path=output_path,
         tweet_image_path=tweet_image_path

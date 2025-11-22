@@ -16,6 +16,8 @@ from playwright.async_api import async_playwright
 async def generate_tweet_screenshot(
     tweet_data: Dict,
     output_path: str,
+    max_content_length: int = 316,
+    show_ellipsis: bool = True,
     device_scale_factor: int = 2
 ) -> str:
     """
@@ -115,6 +117,25 @@ async def generate_tweet_screenshot(
         date_str = datetime.now().strftime('%I:%M %p · %b %d, %Y')
     
     verification_badge = get_verification_badge(tweet_data.get('verify_type', 'none'))
+    
+    # Truncar contenido del tweet si es necesario
+    original_content = tweet_data.get('content', '')
+    tweet_content = original_content
+
+    if len(tweet_content) > max_content_length:
+        # Truncar al límite especificado
+        tweet_content = tweet_content[:max_content_length]
+        
+        # Buscar el último espacio para no cortar palabras
+        last_space = tweet_content.rfind(' ')
+        if last_space > 0:
+            tweet_content = tweet_content[:last_space]
+        
+        # Agregar puntos suspensivos si está habilitado
+        if show_ellipsis:
+            tweet_content = tweet_content + "..."
+        
+        print(f"[TWEET TRUNCATED] Original: {len(original_content)} chars → Truncated: {len(tweet_content)} chars")
     
     # Create HTML
     html_content = f'''<!DOCTYPE html>
@@ -252,7 +273,7 @@ async def generate_tweet_screenshot(
             </div>
         </div>
 
-        <div class="tweet-content">{tweet_data.get('content', '')}</div>
+        <div class="tweet-content">{tweet_content}</div>
 
         <div class="tweet-date">{date_str}</div>
 
